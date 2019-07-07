@@ -15,9 +15,8 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class MainController implements Initializable{
@@ -30,6 +29,8 @@ public class MainController implements Initializable{
 	ImageView powerImg;
 	@FXML
 	StackPane panel;
+	@FXML
+	Text welcomeText;
 	
 	public MainController()
 	{
@@ -78,6 +79,8 @@ public class MainController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		welcomeText.setStyle("-fx-font-family: 'Rubik Mono One', sans-serif; -fx-font-size: 140;");
+		welcomeText.setWrappingWidth(400);
 		FadeTransition fade = new FadeTransition(Duration.millis(1450), panel);
 		fade.setFromValue(1.0);
 		fade.setToValue(0.95);

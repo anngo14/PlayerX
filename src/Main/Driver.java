@@ -61,8 +61,13 @@ public class Driver extends Application{
 		            		primaryStage.setFullScreen(true);
 		            	}
 		            }
+		            if(e.getCode() == KeyCode.ENTER)
+		            {
+		            	MainController.getInstance().loginAction();
+		            }
 		        }
 		    });
+			scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Rubik+Mono+One&display=swap");
 			primaryStage.setFullScreenExitKeyCombination(KeyCombination.valueOf("`"));
 			primaryStage.setScene(scene);
 			primaryStage.setFullScreen(true);;

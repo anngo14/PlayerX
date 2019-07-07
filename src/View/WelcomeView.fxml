@@ -52,7 +52,7 @@
             <Insets top="225.0" />
          </StackPane.margin>
       </Hyperlink>
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER" StackPane.alignment="TOP_LEFT">
+      <Text fx:id="welcomeText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" wrappingWidth="248.609375" StackPane.alignment="TOP_LEFT">
          <font>
             <Font size="96.0" />
          </font>
