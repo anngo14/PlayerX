@@ -24,6 +24,7 @@ public class Driver extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		int count = 0;
 		try {
 			URL url = this.getClass().getResource("/View/WelcomeView.fxml");
 			FXMLLoader loader = new FXMLLoader(url);
@@ -38,8 +39,11 @@ public class Driver extends Application{
 			scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 		        public void handle(KeyEvent e) {
 		            if (e.getCode() == KeyCode.ESCAPE) {
-		                System.out.println("Key Pressed: " + e.getCode());
-		                primaryStage.close();
+		            	int input = MainController.getInstance().confirmationBox();
+		            	if(input == 0)
+		            	{
+			                primaryStage.close();
+		            	}
 		            }
 		        }
 		    });
