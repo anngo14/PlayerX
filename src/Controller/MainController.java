@@ -3,6 +3,7 @@ package Controller;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -64,10 +65,12 @@ public class MainController {
 	}
 	public int confirmationBox()
 	{
+		JFrame jf=new JFrame();
+        jf.setAlwaysOnTop(true);
 		JLabel label = new JLabel("Are You Sure You Want to Exit?");
 		label.setFont(new Font("Arial", Font.BOLD, 24));
 		UIManager.put("OptionPane.minimumSize",new Dimension(150,100)); 
-		int input = JOptionPane.showConfirmDialog(null, label);
+		int input = JOptionPane.showConfirmDialog(jf, label);
 		return input;
 	}
 }

@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
@@ -18,13 +19,14 @@ import javafx.stage.Stage;
 
 public class Driver extends Application{
 
+	private static int count = 0;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		int count = 0;
 		try {
 			URL url = this.getClass().getResource("/View/WelcomeView.fxml");
 			FXMLLoader loader = new FXMLLoader(url);
@@ -39,16 +41,31 @@ public class Driver extends Application{
 			scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 		        public void handle(KeyEvent e) {
 		            if (e.getCode() == KeyCode.ESCAPE) {
-		            	int input = MainController.getInstance().confirmationBox();
-		            	if(input == 0)
+		            	count++;
+		            	if(count == 2)
 		            	{
-			                primaryStage.close();
+		            		int input = MainController.getInstance().confirmationBox();
+		            		if(input == 0)
+		            		{
+		            			primaryStage.close();
+		            		}
+		            		else
+		            		{
+		            			count = 0;
+		            		}
+		            	}
+		            }
+		            if(e.getCode() == KeyCode.F) {
+		            	if(primaryStage.isFullScreen() == false)
+		            	{
+		            		primaryStage.setFullScreen(true);
 		            	}
 		            }
 		        }
 		    });
+			primaryStage.setFullScreenExitKeyCombination(KeyCombination.valueOf("`"));
 			primaryStage.setScene(scene);
-			primaryStage.sizeToScene();
+			primaryStage.setFullScreen(true);;
 			primaryStage.setTitle("PlayerX");
 			primaryStage.getIcons().add(new Image("Resources/Mainicon.png"));
 			primaryStage.show();
