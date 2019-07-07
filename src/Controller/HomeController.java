@@ -63,10 +63,14 @@ public class HomeController implements Controller, Initializable{
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		youtubeButton.setStyle("-fx-font-family: 'Syncopate', sans-serif;  -fx-font-size: 25;");
 		spotifyButton.setStyle("-fx-font-family: 'Syncopate', sans-serif;  -fx-font-size: 25;");
 		videoButton.setStyle("-fx-font-family: 'Syncopate', sans-serif;  -fx-font-size: 25;");
 		musicButton.setStyle("-fx-font-family: 'Syncopate', sans-serif;  -fx-font-size: 25;");
+		
+		youtubeButton.requestFocus();
+		
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),
 				event -> timeLabel.setText(LocalTime.now().format(SHORT_TIME_FORMATTER))),
 				new KeyFrame(Duration.seconds(1)));

@@ -63,13 +63,9 @@ public class Driver extends Application{
 		            		primaryStage.setFullScreen(true);
 		            	}
 		            }
-		            if(e.getCode() == KeyCode.DELETE)
-		            {
-		            	MainController.getInstance().changeView(ViewType.HOMEVIEW);
-		            }
 		            if(e.getCode() == KeyCode.BACK_SPACE)
 		            {
-		            	MainController.getInstance().changeView(ViewType.WELCOMEVIEW);
+		            	MainController.getInstance().changeView(ViewType.HOMEVIEW);
 		            }
 		        }
 		    });
@@ -81,7 +77,6 @@ public class Driver extends Application{
 			primaryStage.setTitle("PlayerX");
 			primaryStage.getIcons().add(new Image("Resources/Mainicon.png"));
 			primaryStage.show();
-			root.requestFocus();
 			
 			
 		} catch(Exception e) {

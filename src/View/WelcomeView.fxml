@@ -34,12 +34,12 @@
             <Insets top="120.0" />
          </StackPane.margin>
       </Text>
-      <Button fx:id="powerButton" mnemonicParsing="false" onAction="#exitApplication" opacity="0.0" prefHeight="71.0" prefWidth="76.0" StackPane.alignment="BOTTOM_LEFT">
+      <Button fx:id="powerButton" focusTraversable="false" mnemonicParsing="false" onAction="#exitApplication" opacity="0.0" prefHeight="71.0" prefWidth="76.0" StackPane.alignment="BOTTOM_LEFT">
          <StackPane.margin>
             <Insets bottom="25.0" left="25.0" />
          </StackPane.margin>
       </Button>
-      <Hyperlink alignment="CENTER" onAction="#switchUser" prefHeight="23.0" prefWidth="256.0" text="Switch Account" textAlignment="CENTER" StackPane.alignment="CENTER">
+      <Hyperlink alignment="CENTER" focusTraversable="false" onAction="#switchUser" prefHeight="23.0" prefWidth="256.0" text="Switch Account" textAlignment="CENTER" StackPane.alignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
