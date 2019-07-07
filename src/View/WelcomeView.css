@@ -1,0 +1,5 @@
+
+.bodybg {
+	-fx-background-image: url("/Resources/nasa-Q1p7bh3SHj8-unsplash.jpg");
+	-fx-background-size: cover, auto;
+}

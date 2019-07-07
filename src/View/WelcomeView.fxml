@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="panel" prefHeight="720.0" prefWidth="1280.0" styleClass="bodybg" stylesheets="@WelcomeView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="powerImg" fitHeight="72.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT">
+         <image>
+            <Image url="@../Resources/power-512.png" />
+         </image>
+         <StackPane.margin>
+            <Insets bottom="25.0" left="25.0" />
+         </StackPane.margin>
+      </ImageView>
+      <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginAction" opacity="0.0" prefHeight="323.0" prefWidth="260.0" style="-fx-background-radius: 150;" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="120.0" />
+         </StackPane.margin>
+      </Button>
+      <ImageView fx:id="userImg" fitHeight="256.0" fitWidth="256.0" pickOnBounds="true">
+         <image>
+            <Image url="@../Resources/rounded-512.png" />
+         </image>
+         <StackPane.margin>
+            <Insets bottom="200.0" />
+         </StackPane.margin>
+      </ImageView>
+      <Text fx:id="userNameText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="John Smith" textAlignment="CENTER" wrappingWidth="256.0" StackPane.alignment="CENTER">
+         <font>
+            <Font size="34.0" />
+         </font>
+         <StackPane.margin>
+            <Insets top="120.0" />
+         </StackPane.margin>
+      </Text>
+      <Button fx:id="powerButton" mnemonicParsing="false" onAction="#exitApplication" opacity="0.0" prefHeight="71.0" prefWidth="76.0" StackPane.alignment="BOTTOM_LEFT">
+         <StackPane.margin>
+            <Insets bottom="25.0" left="25.0" />
+         </StackPane.margin>
+      </Button>
+      <Hyperlink alignment="CENTER" onAction="#switchUser" prefHeight="23.0" prefWidth="256.0" text="Switch Account" textAlignment="CENTER" StackPane.alignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <StackPane.margin>
+            <Insets top="225.0" />
+         </StackPane.margin>
+      </Hyperlink>
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER" StackPane.alignment="TOP_LEFT">
+         <font>
+            <Font size="96.0" />
+         </font>
+         <StackPane.margin>
+            <Insets left="25.0" top="15.0" />
+         </StackPane.margin>
+      </Text>
+   </children>
+</StackPane>
