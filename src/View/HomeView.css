@@ -1,0 +1,4 @@
+.bodybgHome{
+	-fx-background-image: url('/Resources/planet_flash_shine_141469_3840x2160.jpg');
+	-fx-background-size: cover, auto;
+}

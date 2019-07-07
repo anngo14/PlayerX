@@ -18,11 +18,6 @@
             <Insets bottom="25.0" left="25.0" />
          </StackPane.margin>
       </ImageView>
-      <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginAction" opacity="0.0" prefHeight="323.0" prefWidth="260.0" style="-fx-background-radius: 150;" StackPane.alignment="CENTER">
-         <StackPane.margin>
-            <Insets bottom="120.0" />
-         </StackPane.margin>
-      </Button>
       <ImageView fx:id="userImg" fitHeight="256.0" fitWidth="256.0" pickOnBounds="true">
          <image>
             <Image url="@../Resources/rounded-512.png" />
@@ -60,5 +55,10 @@
             <Insets left="25.0" top="15.0" />
          </StackPane.margin>
       </Text>
+      <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginAction" opacity="0.0" prefHeight="349.0" prefWidth="266.0" style="-fx-background-radius: 150;" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="150.0" />
+         </StackPane.margin>
+      </Button>
    </children>
 </StackPane>

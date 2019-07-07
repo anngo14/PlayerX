@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="panel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bodybgHome" stylesheets="@HomeView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="timeLabel" text="12:00 Jul 14, 2019" textFill="#d3d3d3" StackPane.alignment="TOP_LEFT">
+         <StackPane.margin>
+            <Insets left="25.0" top="25.0" />
+         </StackPane.margin>
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="72.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
+         <image>
+            <Image url="@../Resources/home.png" />
+         </image>
+         <StackPane.margin>
+            <Insets right="25.0" top="25.0" />
+         </StackPane.margin>
+      </ImageView>
+      <Label fx:id="userLabel" text="John Smith" textFill="LIGHTGRAY" StackPane.alignment="TOP_RIGHT">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <StackPane.margin>
+            <Insets right="120.0" top="39.0" />
+         </StackPane.margin>
+      </Label>
+      <Button fx:id="logoutButton" alignment="TOP_RIGHT" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#logoutAction" opacity="0.0" prefHeight="72.0" prefWidth="72.0" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="25.0" top="25.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="musicButton" mnemonicParsing="false" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Music" StackPane.alignment="BOTTOM_RIGHT">
+         <StackPane.margin>
+            <Insets bottom="50.0" right="100.0" />
+         </StackPane.margin>
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Button fx:id="youtubeButton" mnemonicParsing="false" prefHeight="70.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="YouTube" StackPane.alignment="BOTTOM_LEFT">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="50.0" left="100.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="spotifyButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Spotify" StackPane.alignment="BOTTOM_CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="50.0" right="320.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="videoButton" mnemonicParsing="false" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Video" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="50.0" left="320.0" />
+         </StackPane.margin>
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+   </children>
+</StackPane>

@@ -3,6 +3,7 @@ package Main;
 import java.net.URL;
 
 import Controller.MainController;
+import Controller.ViewType;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Driver extends Application{
 
@@ -55,25 +57,31 @@ public class Driver extends Application{
 		            		}
 		            	}
 		            }
-		            if(e.getCode() == KeyCode.F) {
+		            if(e.getCode() == KeyCode.TAB) {
 		            	if(primaryStage.isFullScreen() == false)
 		            	{
 		            		primaryStage.setFullScreen(true);
 		            	}
 		            }
-		            if(e.getCode() == KeyCode.ENTER)
+		            if(e.getCode() == KeyCode.DELETE)
 		            {
-		            	MainController.getInstance().loginAction();
+		            	MainController.getInstance().changeView(ViewType.HOMEVIEW);
+		            }
+		            if(e.getCode() == KeyCode.BACK_SPACE)
+		            {
+		            	MainController.getInstance().changeView(ViewType.WELCOMEVIEW);
 		            }
 		        }
 		    });
 			scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Rubik+Mono+One&display=swap");
+			scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Syncopate&display=swap");
 			primaryStage.setFullScreenExitKeyCombination(KeyCombination.valueOf("`"));
 			primaryStage.setScene(scene);
-			primaryStage.setFullScreen(true);;
+			primaryStage.setFullScreen(true);
 			primaryStage.setTitle("PlayerX");
 			primaryStage.getIcons().add(new Image("Resources/Mainicon.png"));
 			primaryStage.show();
+			root.requestFocus();
 			
 			
 		} catch(Exception e) {

@@ -10,7 +10,7 @@ public class Music extends MediaItem{
 	
 	public Music()
 	{
-		super("music");
+		super("music", "UNKNOWN");
 		musicSrc = new ArrayList<String>();
 	}
 

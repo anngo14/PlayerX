@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public class Video extends MediaItem{
 
-	private static ArrayList<String> videoSrc;
+	private ArrayList<String> videoSrc;
 	
 	public Video()
 	{
-		super("video");
+		super("video", "UNKNOWN");
 		videoSrc = new ArrayList<String>();
 	}
 	@Override
