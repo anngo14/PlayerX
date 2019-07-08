@@ -9,15 +9,15 @@
 
 <StackPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="titleLabel" text="Video / Music" StackPane.alignment="TOP_LEFT">
+      <Label fx:id="titleLabel" focusTraversable="false" text="Video / Music" textFill="LIGHTGRAY" StackPane.alignment="TOP_LEFT">
          <font>
             <Font size="52.0" />
          </font>
          <StackPane.margin>
-            <Insets left="25.0" top="25.0" />
+            <Insets left="122.0" top="25.0" />
          </StackPane.margin>
       </Label>
-      <TextField fx:id="pathTextField" alignment="CENTER_RIGHT" editable="false" maxWidth="-Infinity" minHeight="-Infinity" opacity="0.5" prefHeight="72.0" prefWidth="500.0" StackPane.alignment="TOP_RIGHT">
+      <TextField fx:id="pathTextField" alignment="CENTER_RIGHT" editable="false" focusTraversable="false" maxWidth="-Infinity" minHeight="-Infinity" opacity="0.5" prefHeight="72.0" prefWidth="500.0" StackPane.alignment="TOP_RIGHT">
          <StackPane.margin>
             <Insets right="125.0" top="25.0" />
          </StackPane.margin>
@@ -25,11 +25,6 @@
             <Font size="22.0" />
          </font>
       </TextField>
-      <Button fx:id="fileButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#uploadDir" opacity="0.0" prefHeight="72.0" prefWidth="72.0" StackPane.alignment="TOP_RIGHT">
-         <StackPane.margin>
-            <Insets right="25.0" top="25.0" />
-         </StackPane.margin>
-      </Button>
       <ImageView fitHeight="72.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
          <image>
             <Image url="@../Resources/folder.png" />
@@ -58,5 +53,23 @@
             </ListView>
          </children>
       </HBox>
+      <ImageView disable="true" fitHeight="72.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
+         <StackPane.margin>
+            <Insets left="25.0" top="25.0" />
+         </StackPane.margin>
+         <image>
+            <Image url="@../Resources/home.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="homeButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#backToHome" opacity="0.0" prefHeight="72.0" prefWidth="72.0" StackPane.alignment="TOP_LEFT">
+         <StackPane.margin>
+            <Insets left="25.0" top="25.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="fileButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#uploadDir" opacity="0.0" prefHeight="72.0" prefWidth="72.0" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="25.0" top="25.0" />
+         </StackPane.margin>
+      </Button>
    </children>
 </StackPane>

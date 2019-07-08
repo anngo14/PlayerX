@@ -22,18 +22,27 @@ public class MusicController implements Initializable, Controller{
 	ListView list1;
 	@FXML
 	ListView list2;
+	@FXML
+	Button homeButton;
+	
 	public MusicController()
 	{
 		
 	}
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		titleLabel.setText("Music");
-	}
+	
 	@FXML
 	public void uploadDir()
 	{
 		
+	}
+	@FXML
+	public void backToHome()
+	{
+		MainController.getInstance().changeView(ViewType.HOMEVIEW);
+	}
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		titleLabel.setText("Music");
 	}
 
 }
