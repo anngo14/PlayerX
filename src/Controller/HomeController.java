@@ -45,6 +45,26 @@ public class HomeController implements Controller, Initializable{
 		return cid;
 	}
 	@FXML
+	public void musicSwitch()
+	{
+		MainController.getInstance().changeView(ViewType.MUSICVIEW);
+	}
+	@FXML
+	public void videoSwitch()
+	{
+		MainController.getInstance().changeView(ViewType.VIDEOVIEW);
+	}
+	@FXML
+	public void spotifySwitch()
+	{
+		
+	}
+	@FXML
+	public void youtubeSwitch()
+	{
+		
+	}
+	@FXML
 	public void logoutAction()
 	{
 		fade = new FadeTransition(Duration.millis(500), panel);

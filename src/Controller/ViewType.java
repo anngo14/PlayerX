@@ -1,5 +1,5 @@
 package Controller;
 
 public enum ViewType {
-	HOMEVIEW, WELCOMEVIEW
+	HOMEVIEW, WELCOMEVIEW, VIDEOVIEW, MUSICVIEW
 }

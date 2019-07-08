@@ -57,7 +57,7 @@ public class Driver extends Application{
 		            		}
 		            	}
 		            }
-		            if(e.getCode() == KeyCode.TAB) {
+		            if(e.getCode() == KeyCode.CONTROL) {
 		            	if(primaryStage.isFullScreen() == false)
 		            	{
 		            		primaryStage.setFullScreen(true);
