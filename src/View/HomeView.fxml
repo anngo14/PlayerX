@@ -33,7 +33,7 @@
             <Insets right="120.0" top="39.0" />
          </StackPane.margin>
       </Label>
-      <Button fx:id="logoutButton" alignment="TOP_RIGHT" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#logoutAction" opacity="0.0" prefHeight="72.0" prefWidth="72.0" StackPane.alignment="TOP_RIGHT">
+      <Button fx:id="logoutButton" alignment="TOP_RIGHT" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#logoutAction" opacity="0.0" prefHeight="72.0" prefWidth="72.0" StackPane.alignment="TOP_RIGHT">
          <StackPane.margin>
             <Insets right="25.0" top="25.0" />
          </StackPane.margin>
