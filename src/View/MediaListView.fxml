@@ -17,7 +17,7 @@
             <Insets left="122.0" top="25.0" />
          </StackPane.margin>
       </Label>
-      <TextField fx:id="pathTextField" alignment="CENTER_RIGHT" editable="false" focusTraversable="false" maxWidth="-Infinity" minHeight="-Infinity" opacity="0.15" prefHeight="72.0" prefWidth="500.0" StackPane.alignment="TOP_RIGHT">
+      <TextField fx:id="pathTextField" alignment="CENTER_RIGHT" editable="false" focusTraversable="false" maxWidth="-Infinity" minHeight="-Infinity" opacity="0.15" prefHeight="72.0" prefWidth="500.0" style="-fx-font-weight: bold;" StackPane.alignment="TOP_RIGHT">
          <StackPane.margin>
             <Insets right="125.0" top="25.0" />
          </StackPane.margin>
