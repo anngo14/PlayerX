@@ -1,0 +1,4 @@
+.bodyMedia {
+	-fx-background-image: url('/Resources/musicBackground.jpg');
+	-fx-background-size: cover, auto;
+}
