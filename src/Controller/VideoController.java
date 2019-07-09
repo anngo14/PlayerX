@@ -176,6 +176,7 @@ public class VideoController implements Controller, Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		videoList = new ArrayList<Video>();
 		dirChooser.setInitialDirectory(defaultDir);
+		dirChooser.setTitle("Select Video Directory");
 		pathTextField.setText(defaultDir.getAbsolutePath());
 		listAllFiles(defaultDir.getAbsolutePath());
 		titleLabel.setText("Video");

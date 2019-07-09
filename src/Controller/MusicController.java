@@ -171,6 +171,7 @@ public class MusicController implements Initializable, Controller{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		dirChooser.setInitialDirectory(defaultDir);
+		dirChooser.setTitle("Select Music Directory");
 		pathTextField.setText(defaultDir.getAbsolutePath());
 		listAllFiles(defaultDir.getAbsolutePath());
 		titleLabel.setText("Music");
