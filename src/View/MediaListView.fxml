@@ -41,12 +41,12 @@
             <Insets top="125.0" />
          </StackPane.margin>
          <children>
-            <ListView fx:id="list1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.3" prefHeight="575.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
+            <ListView fx:id="list1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" opacity="0.3" prefHeight="575.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets bottom="25.0" top="-165.0" />
                </HBox.margin>
             </ListView>
-            <ListView fx:id="list2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.3" prefHeight="575.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
+            <ListView fx:id="list2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" opacity="0.3" prefHeight="575.0" prefWidth="600.0" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets bottom="25.0" left="30.0" right="25.0" top="-165.0" />
                </HBox.margin>

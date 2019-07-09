@@ -13,6 +13,8 @@ import Model.Video;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -160,7 +162,6 @@ public class MusicController implements Initializable, Controller{
 	@FXML
 	public void changeDefault()
 	{
-		
 	}
 	@FXML
 	public void backToHome()
@@ -173,6 +174,38 @@ public class MusicController implements Initializable, Controller{
 		pathTextField.setText(defaultDir.getAbsolutePath());
 		listAllFiles(defaultDir.getAbsolutePath());
 		titleLabel.setText("Music");
+		list1.focusedProperty().addListener(new ChangeListener<Boolean>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
+				if(arg2)
+				{
+					list1.setOpacity(0.8);
+				}
+				else
+				{
+					list1.setOpacity(0.3);
+				}
+			}
+	
+		});
+		list2.focusedProperty().addListener(new ChangeListener<Boolean>()
+		{
+
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+					Boolean newValue) {
+				if(newValue)
+				{
+					list2.setOpacity(0.8);
+				}
+				else
+				{
+					list2.setOpacity(0.3);
+				}
+			}
+	
+		});
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),
 				event -> timeLabel.setText(LocalTime.now().format(SHORT_TIME_FORMATTER))),
 				new KeyFrame(Duration.seconds(1)));
