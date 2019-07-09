@@ -12,9 +12,6 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.InvalidationListener;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,7 +21,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
@@ -63,6 +59,11 @@ public class VideoController implements Controller, Initializable{
 	
 	public VideoController()
 	{
+		videoList = new ArrayList<Video>();
+		listAllFiles(defaultDir.getAbsolutePath());
+		dirChooser.setInitialDirectory(defaultDir);
+		dirChooser.setTitle("Select Video Directory");
+
 	}
 	
 	@FXML
@@ -108,54 +109,16 @@ public class VideoController implements Controller, Initializable{
 		ObservableList<Video> ovList = FXCollections.observableArrayList(videoList1);
 		ObservableList<Video> ovList2 = FXCollections.observableArrayList(videoList2);
 		list1.setCellFactory(new Callback<ListView<Video>, ListCell<Video>>() {
-
 			@Override
 			public ListCell<Video> call(ListView<Video> arg0) {
-				ListCell<Video> cell = new ListCell<Video>() {
-					@Override
-					protected void updateItem(Video v, boolean b) {
-						super.updateItem(v, b);
-						if(v == null)
-						{
-							setText(null);
-						}
-						else{
-							Image img = new Image(v.getPreviewImg(), 80, 80, false, false);
-							ImageView imgView = new ImageView(img);
-							setGraphic(imgView);
-							Label fileLabel = new Label(v.getfileName());
-							setText(v.getfileName());
-						}
-						
-					}
-				}; 
-				return cell;
+				return new VideoFormatCell();
 			}
 			
 		});
 		list2.setCellFactory(new Callback<ListView<Video>, ListCell<Video>>() {
-
 			@Override
 			public ListCell<Video> call(ListView<Video> arg0) {
-				ListCell<Video> cell = new ListCell<Video>() {
-					@Override
-					protected void updateItem(Video v, boolean b) {
-						super.updateItem(v, b);
-						if(v == null)
-						{
-							setText(null);
-						}
-						else{
-							Image img = new Image(v.getPreviewImg(), 80, 80, false, false);
-							ImageView imgView = new ImageView(img);
-							setGraphic(imgView);
-							Label fileLabel = new Label(v.getfileName());
-							setText(v.getfileName());
-						}
-						
-					}
-				}; 
-				return cell;
+				return new VideoFormatCell();
 			}
 			
 		});  	
@@ -174,44 +137,12 @@ public class VideoController implements Controller, Initializable{
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		videoList = new ArrayList<Video>();
-		dirChooser.setInitialDirectory(defaultDir);
-		dirChooser.setTitle("Select Video Directory");
-		pathTextField.setText(defaultDir.getAbsolutePath());
-		listAllFiles(defaultDir.getAbsolutePath());
 		titleLabel.setText("Video");
-		list1.focusedProperty().addListener(new ChangeListener<Boolean>()
-				{
-					@Override
-					public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
-						if(arg2)
-						{
-							list1.setOpacity(0.8);
-						}
-						else
-						{
-							list1.setOpacity(0.3);
-						}
-					}
-			
-				});
-		list2.focusedProperty().addListener(new ChangeListener<Boolean>()
-				{
-
-					@Override
-					public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-							Boolean newValue) {
-						if(newValue)
-						{
-							list2.setOpacity(0.8);
-						}
-						else
-						{
-							list2.setOpacity(0.3);
-						}
-					}
-			
-				});
+		pathTextField.setText(defaultDir.getAbsolutePath());
+		list1.focusedProperty().addListener(new ListChangeListener(list1));
+		list2.focusedProperty().addListener(new ListChangeListener(list2));
+		updateListView();
+		
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),
 				event -> timeLabel.setText(LocalTime.now().format(SHORT_TIME_FORMATTER))),
 				new KeyFrame(Duration.seconds(1)));
@@ -219,7 +150,6 @@ public class VideoController implements Controller, Initializable{
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 		
-		updateListView();
 
 	}
 

@@ -5,16 +5,12 @@ import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import Model.Music;
-import Model.Video;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,8 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -61,6 +55,9 @@ public class MusicController implements Initializable, Controller{
 	public MusicController()
 	{
 		musicList = new ArrayList<Music>();
+		listAllFiles(defaultDir.getAbsolutePath());
+		dirChooser.setInitialDirectory(defaultDir);
+		dirChooser.setTitle("Select Music Directory");
 	}
 	
 	@FXML
@@ -105,54 +102,16 @@ public class MusicController implements Initializable, Controller{
 		ObservableList<Music> fLists = FXCollections.observableArrayList(musicList1);
 		ObservableList<Music> flists2 = FXCollections.observableArrayList(musicList2);
 		list1.setCellFactory(new Callback<ListView<Music>, ListCell<Music>>() {
-
 			@Override
 			public ListCell<Music> call(ListView<Music> arg0) {
-				ListCell<Music> cell = new ListCell<Music>() {
-					@Override
-					protected void updateItem(Music m, boolean b) {
-						super.updateItem(m, b);
-						if(m == null)
-						{
-							setText(null);
-						}
-						else{
-							Image img = new Image(m.getPreviewImg(), 80, 80, false, false);
-							ImageView imgView = new ImageView(img);
-							setGraphic(imgView);
-							Label fileLabel = new Label(m.getfileName());
-							setText(m.getfileName());
-						}
-						
-					}
-				}; 
-				return cell;
+				return new MusicFormatCell();
 			}
 			
 		});  
 		list2.setCellFactory(new Callback<ListView<Music>, ListCell<Music>>() {
-
 			@Override
 			public ListCell<Music> call(ListView<Music> arg0) {
-				ListCell<Music> cell = new ListCell<Music>() {
-					@Override
-					protected void updateItem(Music m, boolean b) {
-						super.updateItem(m, b);
-						if(m == null)
-						{
-							setText(null);
-						}
-						else{
-							Image img = new Image(m.getPreviewImg(), 80, 80, false, false);
-							ImageView imgView = new ImageView(img);
-							setGraphic(imgView);
-							Label fileLabel = new Label(m.getfileName());
-							setText(m.getfileName());
-						}
-						
-					}
-				}; 
-				return cell;
+				return new MusicFormatCell();
 			}
 			
 		});  
@@ -170,43 +129,12 @@ public class MusicController implements Initializable, Controller{
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		dirChooser.setInitialDirectory(defaultDir);
-		dirChooser.setTitle("Select Music Directory");
-		pathTextField.setText(defaultDir.getAbsolutePath());
-		listAllFiles(defaultDir.getAbsolutePath());
 		titleLabel.setText("Music");
-		list1.focusedProperty().addListener(new ChangeListener<Boolean>()
-		{
-			@Override
-			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
-				if(arg2)
-				{
-					list1.setOpacity(0.8);
-				}
-				else
-				{
-					list1.setOpacity(0.3);
-				}
-			}
-	
-		});
-		list2.focusedProperty().addListener(new ChangeListener<Boolean>()
-		{
+		pathTextField.setText(defaultDir.getAbsolutePath());
+		list1.focusedProperty().addListener(new ListChangeListener(list1));
+		list2.focusedProperty().addListener(new ListChangeListener(list2));
+		updateListView();
 
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-					Boolean newValue) {
-				if(newValue)
-				{
-					list2.setOpacity(0.8);
-				}
-				else
-				{
-					list2.setOpacity(0.3);
-				}
-			}
-	
-		});
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),
 				event -> timeLabel.setText(LocalTime.now().format(SHORT_TIME_FORMATTER))),
 				new KeyFrame(Duration.seconds(1)));
@@ -214,7 +142,6 @@ public class MusicController implements Initializable, Controller{
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 		
-		updateListView();
 	}
 
 }
