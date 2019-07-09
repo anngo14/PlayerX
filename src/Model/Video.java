@@ -5,13 +5,15 @@ import java.util.ArrayList;
 
 public class Video extends MediaItem{
 	
+	final static String defaultVideoIcon = "Resources/mediafile.png";
+	
 	public Video()
 	{
 		super("VIDEO", "UNKNOWN");
 	}
 	public Video(String name)
 	{
-		super("VIDEO", name);
+		super("VIDEO", name, defaultVideoIcon);
 	}
 	public Video(String name, String path)
 	{

@@ -33,7 +33,7 @@ import javafx.util.Duration;
 public class MusicController implements Initializable, Controller{
 
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private final File defaultDir = new File("C:\\Users\\Andrew\\Music");
+    private File defaultDir = new File("C:\\Users\\Andrew\\Music");
 	private DirectoryChooser dirChooser = new DirectoryChooser();
 	private ArrayList<Music> musicList;
 	
@@ -108,7 +108,7 @@ public class MusicController implements Initializable, Controller{
 							setText(null);
 						}
 						else{
-							Image img = new Image("Resources/mediafile.png", 100, 100, false, false);
+							Image img = new Image(m.getPreviewImg(), 80, 80, false, false);
 							ImageView imgView = new ImageView(img);
 							setGraphic(imgView);
 							Label fileLabel = new Label(m.getfileName());
@@ -122,6 +122,11 @@ public class MusicController implements Initializable, Controller{
 			
 		});  	
 		list1.setItems(fLists);
+	}
+	@FXML
+	public void changeDefault()
+	{
+		
 	}
 	@FXML
 	public void backToHome()

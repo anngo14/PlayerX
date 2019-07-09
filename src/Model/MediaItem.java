@@ -13,21 +13,21 @@ public abstract class MediaItem {
 	{
 		mediaType = "UNKNOWN";
 		fileName = "UNKNOWN";
-		previewImg = "/Resources/mediafile.png";
+		previewImg = "";
 		path = "";
 	}
 	public MediaItem(String type)
 	{
 		mediaType = type;
 		fileName = "UNKNOWN";
-		previewImg = "/Resources/mediafile.png";
+		previewImg = "";
 		path = "";
 	}
 	public MediaItem(String type, String name)
 	{
 		mediaType = type;
 		fileName = name;
-		previewImg = "/Resources/mediafile.png";
+		previewImg = "";
 		path = "";
 	}
 	public MediaItem(String type, String name, String path)

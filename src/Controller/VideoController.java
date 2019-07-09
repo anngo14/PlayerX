@@ -33,7 +33,7 @@ public class VideoController implements Controller, Initializable{
 
 	FadeTransition fade;
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private final File defaultDir = new File("C:\\Users\\Andrew\\Videos");
+    private File defaultDir = new File("C:\\Users\\Andrew\\Videos");
 	private DirectoryChooser dirChooser = new DirectoryChooser();
 	private ArrayList<Video> videoList;
 	
@@ -108,7 +108,7 @@ public class VideoController implements Controller, Initializable{
 							setText(null);
 						}
 						else{
-							Image img = new Image("Resources/mediafile.png", 100, 100, false, false);
+							Image img = new Image(v.getPreviewImg(), 80, 80, false, false);
 							ImageView imgView = new ImageView(img);
 							setGraphic(imgView);
 							Label fileLabel = new Label(v.getfileName());
@@ -122,6 +122,11 @@ public class VideoController implements Controller, Initializable{
 			
 		});  	
 		list1.setItems(ovList);
+	}
+	@FXML
+	public void changeDefault()
+	{
+		
 	}
 	@FXML
 	public void backToHome()
