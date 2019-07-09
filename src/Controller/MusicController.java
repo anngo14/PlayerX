@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import Model.Music;
+import Model.Video;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,19 +19,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 public class MusicController implements Initializable, Controller{
 
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
-    HashMap<String, String> fileMap;
     private final File defaultDir = new File("C:\\Users\\Andrew\\Music");
-	final DirectoryChooser dirChooser = new DirectoryChooser();
+	private DirectoryChooser dirChooser = new DirectoryChooser();
+	private ArrayList<Music> musicList;
 	
 	@FXML
 	Label titleLabel;
@@ -40,9 +46,9 @@ public class MusicController implements Initializable, Controller{
 	@FXML
 	Button fileButton;
 	@FXML
-	ListView<String> list1;
+	ListView<Music> list1;
 	@FXML
-	ListView<String> list2;
+	ListView<Music> list2;
 	@FXML
 	Button homeButton;
 	@FXML
@@ -50,13 +56,12 @@ public class MusicController implements Initializable, Controller{
 	
 	public MusicController()
 	{
-		fileMap = new HashMap<String, String>();
+		musicList = new ArrayList<Music>();
 	}
 	
 	@FXML
 	public void uploadDir()
 	{
-		fileMap = new HashMap<String, String>();
 		Stage stage = (Stage) panel.getScene().getWindow();
 		File file = dirChooser.showDialog(stage);
 		
@@ -66,8 +71,7 @@ public class MusicController implements Initializable, Controller{
 		}
 		
 		listAllFiles(file.getAbsolutePath());
-		updateListView();
-		
+		updateListView();	
 	}
 	public void listAllFiles(String path)
 	{
@@ -77,7 +81,9 @@ public class MusicController implements Initializable, Controller{
 	    {
 			if (f.isFile())
 	        {
-				fileMap.put(f.getName(), f.getAbsolutePath());
+				Music temp = new Music(f.getName());
+				temp.setPath(f.getAbsolutePath());
+				musicList.add(temp);
 	        }
 	        else if (f.isDirectory())
 	        {
@@ -88,8 +94,34 @@ public class MusicController implements Initializable, Controller{
 	public void updateListView()
 	{
 		list1.getItems().clear();
-		ObservableList<String> fLists = FXCollections.observableArrayList(fileMap.keySet());
-		list1.getItems().addAll(fLists);
+		ObservableList<Music> fLists = FXCollections.observableArrayList(musicList);
+		list1.setCellFactory(new Callback<ListView<Music>, ListCell<Music>>() {
+
+			@Override
+			public ListCell<Music> call(ListView<Music> arg0) {
+				ListCell<Music> cell = new ListCell<Music>() {
+					@Override
+					protected void updateItem(Music m, boolean b) {
+						super.updateItem(m, b);
+						if(m == null)
+						{
+							setText(null);
+						}
+						else{
+							Image img = new Image("Resources/mediafile.png", 100, 100, false, false);
+							ImageView imgView = new ImageView(img);
+							setGraphic(imgView);
+							Label fileLabel = new Label(m.getfileName());
+							setText(m.getfileName());
+						}
+						
+					}
+				}; 
+				return cell;
+			}
+			
+		});  	
+		list1.setItems(fLists);
 	}
 	@FXML
 	public void backToHome()

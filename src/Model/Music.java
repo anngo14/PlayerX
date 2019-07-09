@@ -5,32 +5,23 @@ import java.util.ArrayList;
 
 
 public class Music extends MediaItem{
-
-	private ArrayList<String> musicSrc;
 	
 	public Music()
 	{
-		super("music", "UNKNOWN");
-		musicSrc = new ArrayList<String>();
+		super("MUSIC", "UNKNOWN");
+	}
+	public Music(String name)
+	{
+		super("MUSIC", name);
+	}
+	public Music(String name, String img)
+	{
+		super("MUSIC", name, img);
+	}
+	public Music(String name, String img, String path)
+	{
+		super("MUSIC", name, img, path);
 	}
 
-	@Override
-	public void playMedia(String location) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void addFolder(String location) {
-		File directory = new File(location);
-		File[] content = directory.listFiles();
-		for(File f: content) {
-			musicSrc.add(f.getAbsolutePath());
-		}
-	}
-
-	@Override
-	public void addFile(String location) {
-		musicSrc.add(location);
-	}
 }
