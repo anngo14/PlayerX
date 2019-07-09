@@ -36,6 +36,8 @@ public class MusicController implements Initializable, Controller{
     private File defaultDir = new File("C:\\Users\\Andrew\\Music");
 	private DirectoryChooser dirChooser = new DirectoryChooser();
 	private ArrayList<Music> musicList;
+	private ArrayList<Music> musicList1;
+	private ArrayList<Music> musicList2;
 	
 	@FXML
 	Label titleLabel;
@@ -93,8 +95,13 @@ public class MusicController implements Initializable, Controller{
 	}
 	public void updateListView()
 	{
+		int size = musicList.size();
+		musicList1 = new ArrayList<Music>(musicList.subList(0, (size + 1)/2));
+		musicList2 = new ArrayList<Music>(musicList.subList((size + 1)/2, size));
 		list1.getItems().clear();
-		ObservableList<Music> fLists = FXCollections.observableArrayList(musicList);
+		list2.getItems().clear();
+		ObservableList<Music> fLists = FXCollections.observableArrayList(musicList1);
+		ObservableList<Music> flists2 = FXCollections.observableArrayList(musicList2);
 		list1.setCellFactory(new Callback<ListView<Music>, ListCell<Music>>() {
 
 			@Override
@@ -120,8 +127,35 @@ public class MusicController implements Initializable, Controller{
 				return cell;
 			}
 			
-		});  	
+		});  
+		list2.setCellFactory(new Callback<ListView<Music>, ListCell<Music>>() {
+
+			@Override
+			public ListCell<Music> call(ListView<Music> arg0) {
+				ListCell<Music> cell = new ListCell<Music>() {
+					@Override
+					protected void updateItem(Music m, boolean b) {
+						super.updateItem(m, b);
+						if(m == null)
+						{
+							setText(null);
+						}
+						else{
+							Image img = new Image(m.getPreviewImg(), 80, 80, false, false);
+							ImageView imgView = new ImageView(img);
+							setGraphic(imgView);
+							Label fileLabel = new Label(m.getfileName());
+							setText(m.getfileName());
+						}
+						
+					}
+				}; 
+				return cell;
+			}
+			
+		});  
 		list1.setItems(fLists);
+		list2.setItems(flists2);
 	}
 	@FXML
 	public void changeDefault()

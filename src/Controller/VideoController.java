@@ -36,6 +36,8 @@ public class VideoController implements Controller, Initializable{
     private File defaultDir = new File("C:\\Users\\Andrew\\Videos");
 	private DirectoryChooser dirChooser = new DirectoryChooser();
 	private ArrayList<Video> videoList;
+	private ArrayList<Video> videoList1;
+	private ArrayList<Video> videoList2;
 	
 	@FXML
 	StackPane panel;
@@ -53,6 +55,8 @@ public class VideoController implements Controller, Initializable{
 	ListView<Video> list2;
 	@FXML
 	Button homeButton;
+	@FXML
+	ImageView defaultIcon;
 	
 	public VideoController()
 	{
@@ -93,9 +97,40 @@ public class VideoController implements Controller, Initializable{
 	}
 	public void updateListView()
 	{
+		int size = videoList.size();
+		videoList1 = new ArrayList<Video>(videoList.subList(0, (size + 1)/2));
+		videoList2 = new ArrayList<Video>(videoList.subList((size + 1)/2, size));
 		list1.getItems().clear();
-		ObservableList<Video> ovList = FXCollections.observableArrayList(videoList);
+		list2.getItems().clear();
+		ObservableList<Video> ovList = FXCollections.observableArrayList(videoList1);
+		ObservableList<Video> ovList2 = FXCollections.observableArrayList(videoList2);
 		list1.setCellFactory(new Callback<ListView<Video>, ListCell<Video>>() {
+
+			@Override
+			public ListCell<Video> call(ListView<Video> arg0) {
+				ListCell<Video> cell = new ListCell<Video>() {
+					@Override
+					protected void updateItem(Video v, boolean b) {
+						super.updateItem(v, b);
+						if(v == null)
+						{
+							setText(null);
+						}
+						else{
+							Image img = new Image(v.getPreviewImg(), 80, 80, false, false);
+							ImageView imgView = new ImageView(img);
+							setGraphic(imgView);
+							Label fileLabel = new Label(v.getfileName());
+							setText(v.getfileName());
+						}
+						
+					}
+				}; 
+				return cell;
+			}
+			
+		});
+		list2.setCellFactory(new Callback<ListView<Video>, ListCell<Video>>() {
 
 			@Override
 			public ListCell<Video> call(ListView<Video> arg0) {
@@ -122,6 +157,7 @@ public class VideoController implements Controller, Initializable{
 			
 		});  	
 		list1.setItems(ovList);
+		list2.setItems(ovList2);
 	}
 	@FXML
 	public void changeDefault()
