@@ -47,7 +47,8 @@ public class HomeController implements Controller, Initializable{
 	@FXML
 	public void musicSwitch()
 	{
-		MainController.getInstance().changeView(ViewType.MUSICVIEW);
+		//MainController.getInstance().changeView(ViewType.MUSICVIEW);
+		MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW);
 	}
 	@FXML
 	public void videoSwitch()

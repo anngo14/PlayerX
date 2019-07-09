@@ -116,6 +116,10 @@ public class MainController implements Initializable, Controller{
 				viewName = "/View/MediaListView.fxml";
 				controller = new VideoController();
 				break;
+			case MUSICPLAYERVIEW:
+				viewName = "/View/MusicPlayerView.fxml";
+				controller = new MusicPlayerController();
+				break;
 			case MUSICVIEW:
 				viewName = "/View/MediaListView.fxml";
 				controller = new MusicController();

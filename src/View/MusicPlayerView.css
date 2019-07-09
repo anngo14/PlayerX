@@ -1,0 +1,7 @@
+.bodyMusicPlayer {
+	-fx-background-image: url('/Resources/musicPlayer.jpg');
+	-fx-background-size: cover, auto;
+}
+.musicBox {
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 20, 0, 0, 0);
+}
