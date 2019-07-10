@@ -5,14 +5,15 @@ import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
-
 import Model.Music;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,6 +21,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -121,11 +125,12 @@ public class MusicController implements Initializable, Controller{
 	@FXML
 	public void changeDefault()
 	{
+		defaultDir = new File(pathTextField.getText());
 	}
 	@FXML
 	public void backToHome()
 	{
-		MainController.getInstance().changeView(ViewType.HOMEVIEW);
+		MainController.getInstance().changeView(ViewType.HOMEVIEW, Optional.empty(), Optional.empty());
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -133,6 +138,43 @@ public class MusicController implements Initializable, Controller{
 		pathTextField.setText(defaultDir.getAbsolutePath());
 		list1.focusedProperty().addListener(new ListChangeListener(list1));
 		list2.focusedProperty().addListener(new ListChangeListener(list2));
+		list1.setOnMousePressed(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+					Music select = list1.getSelectionModel().getSelectedItem();
+					MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, Optional.of(select), Optional.of(musicList));
+				}
+			}
+		});
+		list2.setOnMousePressed(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+					Music select = list2.getSelectionModel().getSelectedItem();
+					MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, Optional.of(select), Optional.of(musicList));
+				}
+			}
+		});
+		list1.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent event)
+			{
+				if(event.getCode() == KeyCode.ENTER)
+				{
+					Music select = list1.getSelectionModel().getSelectedItem();
+					MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, Optional.of(select), Optional.of(musicList));
+				}
+			}
+		});
+		list2.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent event)
+			{
+				if(event.getCode() == KeyCode.ENTER)
+				{
+					Music select = list2.getSelectionModel().getSelectedItem();
+					MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, Optional.of(select), Optional.of(musicList));
+				}
+			}
+		});
+		
 		updateListView();
 
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),

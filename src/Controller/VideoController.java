@@ -5,6 +5,7 @@ import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import Model.Video;
@@ -133,7 +134,7 @@ public class VideoController implements Controller, Initializable{
 	@FXML
 	public void backToHome()
 	{
-		MainController.getInstance().changeView(ViewType.HOMEVIEW);
+		MainController.getInstance().changeView(ViewType.HOMEVIEW, Optional.empty(), Optional.empty());
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

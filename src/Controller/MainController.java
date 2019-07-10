@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -12,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import Model.MediaItem;
+import Model.Music;
 import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -67,7 +70,7 @@ public class MainController implements Initializable, Controller{
 		fade.setFromValue(1.0);
 		fade.setToValue(0);
 		fade.play();
-		changeView(ViewType.HOMEVIEW);
+		changeView(ViewType.HOMEVIEW, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void exitApplication()
@@ -97,7 +100,7 @@ public class MainController implements Initializable, Controller{
 		return input;
 	}
 
-	public void changeView(ViewType viewType) 
+	public void changeView(ViewType viewType, Optional<MediaItem> item, Optional<ArrayList<Music>> itemList) 
 	{
 		
 		String viewName = "";
@@ -118,7 +121,7 @@ public class MainController implements Initializable, Controller{
 				break;
 			case MUSICPLAYERVIEW:
 				viewName = "/View/MusicPlayerView.fxml";
-				controller = new MusicPlayerController();
+				controller = new MusicPlayerController(item.get(), itemList.get());
 				break;
 			case MUSICVIEW:
 				viewName = "/View/MediaListView.fxml";

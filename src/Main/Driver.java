@@ -1,6 +1,7 @@
 package Main;
 
 import java.net.URL;
+import java.util.Optional;
 
 import Controller.MainController;
 import Controller.ViewType;
@@ -61,7 +62,7 @@ public class Driver extends Application{
 		            }
 		            if(e.getCode() == KeyCode.BACK_SPACE)
 		            {
-		            	MainController.getInstance().changeView(ViewType.HOMEVIEW);
+		            	MainController.getInstance().changeView(ViewType.HOMEVIEW, Optional.empty(), Optional.empty());
 		            }
 		        }
 		    });

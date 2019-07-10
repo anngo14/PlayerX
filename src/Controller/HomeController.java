@@ -3,6 +3,7 @@ package Controller;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.animation.Animation;
@@ -47,13 +48,12 @@ public class HomeController implements Controller, Initializable{
 	@FXML
 	public void musicSwitch()
 	{
-		//MainController.getInstance().changeView(ViewType.MUSICVIEW);
-		MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW);
+		MainController.getInstance().changeView(ViewType.MUSICVIEW, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void videoSwitch()
 	{
-		MainController.getInstance().changeView(ViewType.VIDEOVIEW);
+		MainController.getInstance().changeView(ViewType.VIDEOVIEW, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void spotifySwitch()
@@ -72,7 +72,7 @@ public class HomeController implements Controller, Initializable{
 		fade.setFromValue(1);
 		fade.setToValue(0);
 		fade.play();
-		MainController.getInstance().changeView(ViewType.WELCOMEVIEW);
+		MainController.getInstance().changeView(ViewType.WELCOMEVIEW, Optional.empty(), Optional.empty());
 		fade.stop();
 		fade = new FadeTransition(Duration.millis(750), panel);
 		fade.setFromValue(0);
