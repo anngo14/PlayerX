@@ -65,6 +65,7 @@ public class MusicPlayerController implements Initializable, Controller{
 		media = new Media(new File(selectedMusic.getPath()).toURI().toString());
 		player = new MediaPlayer(media);
 		player.setAutoPlay(true);
+		player.setOnEndOfMedia(() -> fastForwardTrack());
 	}
 
 	@FXML
@@ -103,6 +104,7 @@ public class MusicPlayerController implements Initializable, Controller{
 		}
 		player = new MediaPlayer(media);
 		player.setAutoPlay(true);
+		player.setOnEndOfMedia(() -> fastForwardTrack());
 	}
 	@FXML
 	public void pauseTrack()
@@ -129,6 +131,7 @@ public class MusicPlayerController implements Initializable, Controller{
 		}
 		player = new MediaPlayer(media);
 		player.setAutoPlay(true);
+		player.setOnEndOfMedia(() -> fastForwardTrack());
 	}
 	public int getIndex(Music m, ArrayList<Music> list)
 	{

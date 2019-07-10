@@ -68,6 +68,7 @@ public class MusicController implements Initializable, Controller{
 	@FXML
 	public void uploadDir()
 	{
+		musicList.clear();
 		Stage stage = (Stage) panel.getScene().getWindow();
 		File file = dirChooser.showDialog(stage);
 		
@@ -101,8 +102,16 @@ public class MusicController implements Initializable, Controller{
 	public void updateListView()
 	{
 		int size = musicList.size();
-		musicList1 = new ArrayList<Music>(musicList.subList(0, (size + 1)/2));
-		musicList2 = new ArrayList<Music>(musicList.subList((size + 1)/2, size));
+		if(size != 0)
+		{
+			musicList1 = new ArrayList<Music>(musicList.subList(0, (size + 1)/2));
+			musicList2 = new ArrayList<Music>(musicList.subList((size + 1)/2, size));
+		}
+		else
+		{
+			musicList1 = new ArrayList<Music>();
+			musicList2 = new ArrayList<Music>();
+		}
 		list1.getItems().clear();
 		list2.getItems().clear();
 		ObservableList<Music> fLists = FXCollections.observableArrayList(musicList1);
