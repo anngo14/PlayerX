@@ -25,6 +25,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -63,7 +65,6 @@ public class MusicController implements Initializable, Controller{
 		dirChooser.setInitialDirectory(defaultDir);
 		dirChooser.setTitle("Select Music Directory");
 	}
-	
 	@FXML
 	public void uploadDir()
 	{
