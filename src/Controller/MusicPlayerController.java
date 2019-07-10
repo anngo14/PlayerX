@@ -12,9 +12,12 @@ import Model.Music;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -31,6 +34,22 @@ public class MusicPlayerController implements Initializable, Controller{
 	Label timeLabel;
 	@FXML
 	Label songLabel;
+	@FXML
+	ImageView playImg;
+	@FXML
+	ImageView pauseImg;
+	@FXML
+	ImageView reverseImg;
+	@FXML 
+	ImageView forwardImg;
+	@FXML
+	Button playButton;
+	@FXML
+	Button pauseButton;
+	@FXML
+	Button reverseButton;
+	@FXML
+	Button forwardButton;
 	
 	public MusicPlayerController()
 	{
@@ -74,6 +93,10 @@ public class MusicPlayerController implements Initializable, Controller{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		songLabel.setText(selectedMusic.getfileName());
+		playButton.focusedProperty().addListener(new MusicPlayerChangeListener(playImg));
+		pauseButton.focusedProperty().addListener(new MusicPlayerChangeListener(pauseImg));
+		reverseButton.focusedProperty().addListener(new MusicPlayerChangeListener(reverseImg));
+		forwardButton.focusedProperty().addListener(new MusicPlayerChangeListener(forwardImg));
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),
 				event -> timeLabel.setText(LocalTime.now().format(SHORT_TIME_FORMATTER))),
 				new KeyFrame(Duration.seconds(1)));

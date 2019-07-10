@@ -19,7 +19,7 @@
             <Insets left="25.0" top="25.0" />
          </StackPane.margin>
       </ImageView>
-      <Label fx:id="timeLabel" text="12:00" StackPane.alignment="TOP_LEFT">
+      <Label fx:id="timeLabel" focusTraversable="false" text="12:00" StackPane.alignment="TOP_LEFT">
          <StackPane.margin>
             <Insets left="122.0" top="39.0" />
          </StackPane.margin>
@@ -50,7 +50,7 @@
             <Insets bottom="25.0" left="25.0" />
          </StackPane.margin>
       </Rectangle>
-      <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT">
+      <ImageView fx:id="playImg" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT">
          <image>
             <Image url="@../Resources/playicon.png" />
          </image>
@@ -58,7 +58,7 @@
             <Insets bottom="25.0" left="25.0" />
          </StackPane.margin>
       </ImageView>
-      <ImageView fitHeight="72.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT">
+      <ImageView fx:id="pauseImg" fitHeight="72.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT">
          <image>
             <Image url="@../Resources/pauseicon.png" />
          </image>
@@ -66,7 +66,7 @@
             <Insets bottom="25.0" left="297.0" />
          </StackPane.margin>
       </ImageView>
-      <ImageView fitHeight="72.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT">
+      <ImageView fx:id="reverseImg" fitHeight="72.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT">
          <image>
             <Image url="@../Resources/reverseforward.png" />
          </image>
@@ -74,7 +74,7 @@
             <Insets bottom="25.0" left="225.0" />
          </StackPane.margin>
       </ImageView>
-      <ImageView fitHeight="72.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT">
+      <ImageView fx:id="forwardImg" fitHeight="72.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT">
          <image>
             <Image url="@../Resources/fastforward.png" />
          </image>
@@ -82,7 +82,7 @@
             <Insets bottom="25.0" left="369.0" />
          </StackPane.margin>
       </ImageView>
-      <Label fx:id="songLabel" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="372.0" text="Song Test " StackPane.alignment="BOTTOM_LEFT">
+      <Label fx:id="songLabel" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="372.0" text="Song Test " StackPane.alignment="BOTTOM_LEFT">
          <StackPane.margin>
             <Insets bottom="100.0" left="228.0" />
          </StackPane.margin>
