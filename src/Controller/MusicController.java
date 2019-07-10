@@ -96,6 +96,7 @@ public class MusicController implements Initializable, Controller{
 	            listAllFiles(f.getAbsolutePath());
 	        }
 	    }
+		musicList = sanitizeMusicList();
 	}
 	public void updateListView()
 	{
@@ -106,6 +107,7 @@ public class MusicController implements Initializable, Controller{
 		list2.getItems().clear();
 		ObservableList<Music> fLists = FXCollections.observableArrayList(musicList1);
 		ObservableList<Music> flists2 = FXCollections.observableArrayList(musicList2);
+		
 		list1.setCellFactory(new Callback<ListView<Music>, ListCell<Music>>() {
 			@Override
 			public ListCell<Music> call(ListView<Music> arg0) {
@@ -123,6 +125,18 @@ public class MusicController implements Initializable, Controller{
 		list1.setItems(fLists);
 		list2.setItems(flists2);
 	}
+	public ArrayList<Music> sanitizeMusicList()
+	{
+		ArrayList<Music> temp = new ArrayList<Music>();
+		for(Music m: musicList)
+		{
+			if(m.getfileName().endsWith(".mp3") || m.getfileName().endsWith(".wav") ||m.getfileName().endsWith(".aac"))
+			{
+				temp.add(m);
+			}
+		}
+		return temp;
+	}
 	@FXML
 	public void changeDefault()
 	{
@@ -137,45 +151,16 @@ public class MusicController implements Initializable, Controller{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		titleLabel.setText("Music");
 		pathTextField.setText(defaultDir.getAbsolutePath());
+		
 		list1.focusedProperty().addListener(new ListChangeListener(list1));
 		list2.focusedProperty().addListener(new ListChangeListener(list2));
-		list1.setOnMousePressed(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent event) {
-				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-					Music select = list1.getSelectionModel().getSelectedItem();
-					MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, Optional.of(select), Optional.of(musicList));
-				}
-			}
-		});
-		list2.setOnMousePressed(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent event) {
-				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-					Music select = list2.getSelectionModel().getSelectedItem();
-					MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, Optional.of(select), Optional.of(musicList));
-				}
-			}
-		});
-		list1.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent event)
-			{
-				if(event.getCode() == KeyCode.ENTER)
-				{
-					Music select = list1.getSelectionModel().getSelectedItem();
-					MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, Optional.of(select), Optional.of(musicList));
-				}
-			}
-		});
-		list2.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent event)
-			{
-				if(event.getCode() == KeyCode.ENTER)
-				{
-					Music select = list2.getSelectionModel().getSelectedItem();
-					MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, Optional.of(select), Optional.of(musicList));
-				}
-			}
-		});
 		
+		list1.setOnMousePressed(new MusicMouseEventHandler(list1, musicList));
+		list2.setOnMousePressed(new MusicMouseEventHandler(list2, musicList));
+
+		list1.setOnKeyPressed(new MusicKeyEventHandler(list1, musicList));
+		list2.setOnKeyPressed(new MusicKeyEventHandler(list2, musicList));
+
 		updateListView();
 
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),
