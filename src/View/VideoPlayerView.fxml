@@ -54,7 +54,7 @@
                   <Insets bottom="25.0" left="154.0" />
                </StackPane.margin>
             </Button>
-            <Slider fx:id="slider" StackPane.alignment="TOP_CENTER">
+            <Slider fx:id="slider" blockIncrement="2.0" StackPane.alignment="TOP_CENTER">
                <StackPane.margin>
                   <Insets left="25.0" right="25.0" top="25.0" />
                </StackPane.margin>

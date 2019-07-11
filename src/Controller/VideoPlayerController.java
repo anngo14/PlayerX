@@ -12,11 +12,17 @@ import Model.Video;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -58,6 +64,8 @@ public class VideoPlayerController implements Initializable, Controller{
 	@FXML
 	ImageView forwardImg;
 	@FXML
+	Slider slider;
+	@FXML
 	StackPane panel;
 	@FXML
 	StackPane mediaBar;
@@ -71,7 +79,8 @@ public class VideoPlayerController implements Initializable, Controller{
 	public VideoPlayerController(MediaItem m)
 	{
 		selected = (Video) m;
-		
+		media = new Media(new File(selected.getPath()).toURI().toString());
+		player = new MediaPlayer(media);
 	}
 	@FXML
 	public void playMedia()
@@ -92,12 +101,28 @@ public class VideoPlayerController implements Initializable, Controller{
 	@FXML
 	public void reverseMedia()
 	{
-		
+		player.pause();
+		Double seekValue = player.getCurrentTime().toMillis() / player.getTotalDuration().toMillis() * 100 - 2;
+		if(seekValue <= 0)
+		{
+			return;
+		}
+		slider.setValue(seekValue);
+		player.seek(player.getMedia().getDuration().multiply(slider.getValue() / 100)); 
+		player.play();
 	}
 	@FXML
 	public void forwardMedia()
 	{
-		
+		player.pause();
+		Double seekValue = player.getCurrentTime().toMillis() / player.getTotalDuration().toMillis() * 100 + 2;
+		if(seekValue >= player.getTotalDuration().toMillis() * 100)
+		{
+			return;
+		}
+		slider.setValue(seekValue);
+		player.seek(player.getMedia().getDuration().multiply(slider.getValue() / 100)); 
+		player.play();
 	}
 	@FXML
 	public void backToList()
@@ -121,14 +146,48 @@ public class VideoPlayerController implements Initializable, Controller{
 			timeBox.setOpacity(1);
 		}
 	}
+	protected void updatesValues()
+	{
+		Platform.runLater(new Runnable() {
+			public void run()
+			{
+				slider.setValue(player.getCurrentTime().toMillis() / player.getTotalDuration().toMillis() * 100); 
+			}
+		});
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		media = new Media(new File(selected.getPath()).toURI().toString());
-		player = new MediaPlayer(media);
 		viewer.setMediaPlayer(player);
 		viewer.fitHeightProperty().bind(panel.heightProperty());
 		viewer.fitWidthProperty().bind(panel.widthProperty());
 		player.setAutoPlay(true);
+		player.currentTimeProperty().addListener(new InvalidationListener() {
+			@Override
+			public void invalidated(Observable arg0) {
+				updatesValues();
+			}
+			
+		});
+		slider.valueProperty().addListener(new InvalidationListener() {
+			@Override
+			public void invalidated(Observable arg0) {
+				if(slider.isPressed()) {
+					player.seek(player.getMedia().getDuration().multiply(slider.getValue() / 100)); 
+				}
+			}
+			
+		});
+		slider.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+				if(Math.abs(arg2.intValue() -  arg1.intValue()) == slider.getBlockIncrement())
+				{
+					slider.setValue(arg2.doubleValue());
+					player.seek(player.getMedia().getDuration().multiply(slider.getValue() / 100));
+				}
+			}
+			
+		});
 		playButton.focusedProperty().addListener(new VideoPlayerChangeListener(playImg));
 		reverseButton.focusedProperty().addListener(new VideoPlayerChangeListener(reverseImg));
 		forwardButton.focusedProperty().addListener(new VideoPlayerChangeListener(forwardImg));
