@@ -1,6 +1,11 @@
 package Controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +18,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -21,12 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -35,7 +34,8 @@ import javafx.util.Duration;
 public class MusicController implements Initializable, Controller{
 
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private File defaultDir = new File("C:\\Users\\Andrew\\Music");
+    private final File directory = new File ("C:\\PlayerX");
+    private final File defaultFileName = new File("C:\\PlayerX\\defaultMusicDirectory.txt");
 	private DirectoryChooser dirChooser = new DirectoryChooser();
 	private ArrayList<Music> musicList;
 	private ArrayList<Music> musicList1;
@@ -61,8 +61,8 @@ public class MusicController implements Initializable, Controller{
 	public MusicController()
 	{
 		musicList = new ArrayList<Music>();
-		listAllFiles(defaultDir.getAbsolutePath());
-		dirChooser.setInitialDirectory(defaultDir);
+		listAllFiles(getDefaultDir().getAbsolutePath());
+		dirChooser.setInitialDirectory(getDefaultDir());
 		dirChooser.setTitle("Select Music Directory");
 	}
 	@FXML
@@ -146,10 +146,58 @@ public class MusicController implements Initializable, Controller{
 		}
 		return temp;
 	}
+	public File getDefaultDir() {
+		FileInputStream input = null;
+		File defaultDirectory = null;
+		
+		try {
+			input = new FileInputStream(defaultFileName);
+			InputStreamReader isr = new InputStreamReader(input);
+			BufferedReader buffer = new BufferedReader(isr);
+            StringBuilder builder = new StringBuilder();
+            String text;
+            
+            while((text = buffer.readLine()) != null) {
+                builder.append(text);
+            }
+    		defaultDirectory = new File(builder.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return defaultDirectory;
+	}
 	@FXML
 	public void changeDefault()
 	{
-		defaultDir = new File(pathTextField.getText());
+		FileOutputStream output = null;
+		if(!directory.exists())
+		{
+			directory.mkdir();
+		}
+		try {
+			if (!defaultFileName.exists()) {
+				defaultFileName.createNewFile();
+			}
+			
+			output = new FileOutputStream(defaultFileName);	
+			byte[] content = pathTextField.getText().getBytes();
+			output.write(content);
+			output.flush();
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(output != null)
+				{
+					output.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	@FXML
 	public void backToHome()
@@ -159,7 +207,7 @@ public class MusicController implements Initializable, Controller{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		titleLabel.setText("Music");
-		pathTextField.setText(defaultDir.getAbsolutePath());
+		pathTextField.setText(getDefaultDir().getAbsolutePath());
 		
 		list1.focusedProperty().addListener(new ListChangeListener(list1));
 		list2.focusedProperty().addListener(new ListChangeListener(list2));

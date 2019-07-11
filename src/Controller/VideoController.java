@@ -1,6 +1,11 @@
 package Controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import Model.Music;
 import Model.Video;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -16,7 +20,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,7 +28,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -36,7 +38,8 @@ public class VideoController implements Controller, Initializable{
 
 	FadeTransition fade;
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private File defaultDir = new File("C:\\Users\\Andrew\\Videos");
+    private final File directory = new File ("C:\\PlayerX");
+    private final File defaultFileName = new File("C:\\PlayerX\\defaultVideoDirectory.txt");
 	private DirectoryChooser dirChooser = new DirectoryChooser();
 	private ArrayList<Video> videoList;
 	private ArrayList<Video> videoList1;
@@ -64,10 +67,9 @@ public class VideoController implements Controller, Initializable{
 	public VideoController()
 	{
 		videoList = new ArrayList<Video>();
-		listAllFiles(defaultDir.getAbsolutePath());
-		dirChooser.setInitialDirectory(defaultDir);
+		listAllFiles(getDefaultDir().getAbsolutePath());
+		dirChooser.setInitialDirectory(getDefaultDir());
 		dirChooser.setTitle("Select Video Directory");
-
 	}
 	
 	@FXML
@@ -150,10 +152,58 @@ public class VideoController implements Controller, Initializable{
 		list1.setItems(ovList);
 		list2.setItems(ovList2);
 	}
+	public File getDefaultDir() {
+		FileInputStream input = null;
+		File defaultDirectory = null;
+		
+		try {
+			input = new FileInputStream(defaultFileName);
+			InputStreamReader isr = new InputStreamReader(input);
+			BufferedReader buffer = new BufferedReader(isr);
+            StringBuilder builder = new StringBuilder();
+            String text;
+            
+            while((text = buffer.readLine()) != null) {
+                builder.append(text);
+            }
+    		defaultDirectory = new File(builder.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return defaultDirectory;
+	}
 	@FXML
 	public void changeDefault()
 	{
-		defaultDir = new File(pathTextField.getText());
+		FileOutputStream output = null;
+		if(!directory.exists())
+		{
+			directory.mkdir();
+		}
+		try {
+			if (!defaultFileName.exists()) {
+				defaultFileName.createNewFile();
+			}
+			
+			output = new FileOutputStream(defaultFileName);	
+			byte[] content = pathTextField.getText().getBytes();
+			output.write(content);
+			output.flush();
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(output != null)
+				{
+					output.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	@FXML
 	public void backToHome()
@@ -163,7 +213,7 @@ public class VideoController implements Controller, Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		titleLabel.setText("Video");
-		pathTextField.setText(defaultDir.getAbsolutePath());
+		pathTextField.setText(getDefaultDir().getAbsolutePath());
 		
 		list1.focusedProperty().addListener(new ListChangeListener(list1));
 		list2.focusedProperty().addListener(new ListChangeListener(list2));
