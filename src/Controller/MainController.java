@@ -128,6 +128,10 @@ public class MainController implements Initializable, Controller{
 				viewName = "/View/MediaListView.fxml";
 				controller = new MusicController();
 				break;
+			case VIDEOPLAYERVIEW:
+				viewName = "/View/VideoPlayerView.fxml";
+				controller = new VideoPlayerController();
+				break;
 		}
 		try {
 			FXMLLoader loader = new FXMLLoader(this.getClass().getResource(viewName));

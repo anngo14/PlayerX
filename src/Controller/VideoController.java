@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import Model.Music;
 import Model.Video;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -15,6 +16,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,6 +25,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -70,6 +73,7 @@ public class VideoController implements Controller, Initializable{
 	@FXML
 	public void uploadDir()
 	{
+		videoList.clear();
 		Stage stage = (Stage) panel.getScene().getWindow();
 		File file = dirChooser.showDialog(stage);
 		
@@ -83,7 +87,6 @@ public class VideoController implements Controller, Initializable{
 	}
 	public void listAllFiles(String path)
 	{
-		videoList.clear();
 		File folder = new File(path);
 		File[] files = folder.listFiles();
 		for (File f : files)
@@ -99,12 +102,33 @@ public class VideoController implements Controller, Initializable{
 	            listAllFiles(f.getAbsolutePath());
 	        }
 	    }
+		videoList = sanitizeVideoList();
+	}
+	public ArrayList<Video> sanitizeVideoList()
+	{
+		ArrayList<Video> temp = new ArrayList<Video>();
+		for(Video m: videoList)
+		{
+			if(m.getfileName().endsWith(".mp4") || m.getfileName().endsWith(".flv"))
+			{
+				temp.add(m);
+			}
+		}
+		return temp;
 	}
 	public void updateListView()
 	{
 		int size = videoList.size();
-		videoList1 = new ArrayList<Video>(videoList.subList(0, (size + 1)/2));
-		videoList2 = new ArrayList<Video>(videoList.subList((size + 1)/2, size));
+		if(size != 0)
+		{
+			videoList1 = new ArrayList<Video>(videoList.subList(0, (size + 1)/2));
+			videoList2 = new ArrayList<Video>(videoList.subList((size + 1)/2, size));
+		}
+		else
+		{
+			videoList1 = new ArrayList<Video>();
+			videoList2 = new ArrayList<Video>();
+		}
 		list1.getItems().clear();
 		list2.getItems().clear();
 		ObservableList<Video> ovList = FXCollections.observableArrayList(videoList1);
@@ -129,7 +153,7 @@ public class VideoController implements Controller, Initializable{
 	@FXML
 	public void changeDefault()
 	{
-		
+		defaultDir = new File(pathTextField.getText());
 	}
 	@FXML
 	public void backToHome()
@@ -140,8 +164,16 @@ public class VideoController implements Controller, Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		titleLabel.setText("Video");
 		pathTextField.setText(defaultDir.getAbsolutePath());
+		
 		list1.focusedProperty().addListener(new ListChangeListener(list1));
 		list2.focusedProperty().addListener(new ListChangeListener(list2));
+		
+		list1.setOnMousePressed(new VideoMouseEventHandler());
+		list2.setOnMousePressed(new VideoMouseEventHandler());
+		
+		list1.setOnKeyPressed(new VideoKeyEventHandler());
+		list2.setOnKeyPressed(new VideoKeyEventHandler());
+		
 		updateListView();
 		
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),
@@ -150,7 +182,6 @@ public class VideoController implements Controller, Initializable{
 
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
-		
 
 	}
 
