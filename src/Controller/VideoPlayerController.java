@@ -20,6 +20,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -160,6 +161,7 @@ public class VideoPlayerController implements Initializable, Controller{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		panel.setOnKeyPressed(new MediaPlayerKeyEventHandler(panel, Optional.of(player)));
+		panel.setCursor(Cursor.NONE);
 		viewer.setMediaPlayer(player);
 		viewer.fitHeightProperty().bind(panel.heightProperty());
 		viewer.fitWidthProperty().bind(panel.widthProperty());
@@ -171,7 +173,7 @@ public class VideoPlayerController implements Initializable, Controller{
 		reverseButton.focusedProperty().addListener(new VideoPlayerChangeListener(reverseImg));
 		forwardButton.focusedProperty().addListener(new VideoPlayerChangeListener(forwardImg));
 		
-		mediaBar.setOnKeyPressed(new MediaBarKeyEventHandler(mediaBar, timeLabel, timeBox));
+		mediaBar.setOnKeyPressed(new MediaBarKeyEventHandler(mediaBar, timeLabel, timeBox, panel));
 		
 		player.currentTimeProperty().addListener(new InvalidationListener() {
 			@Override
