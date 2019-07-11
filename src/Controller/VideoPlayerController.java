@@ -1,11 +1,14 @@
 package Controller;
 
+import java.io.File;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import Model.MediaItem;
+import Model.Video;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -19,15 +22,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class VideoPlayerController implements Initializable, Controller{
 
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
-
+    private Video selected;
+    private MediaPlayer player;
+    private Media media;
+    
 	@FXML
 	MediaView viewer;
 	@FXML
@@ -60,18 +67,26 @@ public class VideoPlayerController implements Initializable, Controller{
 	{
 		
 	}
+	
+	public VideoPlayerController(MediaItem m)
+	{
+		selected = (Video) m;
+		
+	}
 	@FXML
 	public void playMedia()
 	{
-		if(playButton.getText().equals(">"))
+		if(playButton.getText().equals("||"))
 		{
-			playButton.setText("||");
-			playImg.setImage(new Image("Resources/pauseicon.png"));
+			player.pause();
+			playButton.setText(">");
+			playImg.setImage(new Image("Resources/playicon.png"));
 		}
 		else
 		{
-			playButton.setText(">");
-			playImg.setImage(new Image("Resources/playicon.png"));
+			player.play();
+			playButton.setText("||");
+			playImg.setImage(new Image("Resources/pauseicon.png"));
 		}
 	}
 	@FXML
@@ -87,6 +102,7 @@ public class VideoPlayerController implements Initializable, Controller{
 	@FXML
 	public void backToList()
 	{
+		player.stop();
 		MainController.getInstance().changeView(ViewType.VIDEOVIEW, Optional.empty(), Optional.empty());
 	}
 	@FXML
@@ -107,6 +123,12 @@ public class VideoPlayerController implements Initializable, Controller{
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		media = new Media(new File(selected.getPath()).toURI().toString());
+		player = new MediaPlayer(media);
+		viewer.setMediaPlayer(player);
+		viewer.fitHeightProperty().bind(panel.heightProperty());
+		viewer.fitWidthProperty().bind(panel.widthProperty());
+		player.setAutoPlay(true);
 		playButton.focusedProperty().addListener(new VideoPlayerChangeListener(playImg));
 		reverseButton.focusedProperty().addListener(new VideoPlayerChangeListener(reverseImg));
 		forwardButton.focusedProperty().addListener(new VideoPlayerChangeListener(forwardImg));
@@ -120,9 +142,6 @@ public class VideoPlayerController implements Initializable, Controller{
 			}
 			
 		});
-		
-		viewer.fitHeightProperty().bind(panel.heightProperty());
-		viewer.fitWidthProperty().bind(panel.widthProperty());
 		
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),
 				event -> timeLabel.setText(LocalTime.now().format(SHORT_TIME_FORMATTER))),

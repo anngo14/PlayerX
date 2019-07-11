@@ -130,7 +130,7 @@ public class MainController implements Initializable, Controller{
 				break;
 			case VIDEOPLAYERVIEW:
 				viewName = "/View/VideoPlayerView.fxml";
-				controller = new VideoPlayerController();
+				controller = new VideoPlayerController(item.get());
 				break;
 		}
 		try {

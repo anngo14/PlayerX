@@ -168,11 +168,11 @@ public class VideoController implements Controller, Initializable{
 		list1.focusedProperty().addListener(new ListChangeListener(list1));
 		list2.focusedProperty().addListener(new ListChangeListener(list2));
 		
-		list1.setOnMousePressed(new VideoMouseEventHandler());
-		list2.setOnMousePressed(new VideoMouseEventHandler());
+		list1.setOnMousePressed(new VideoMouseEventHandler(list1));
+		list2.setOnMousePressed(new VideoMouseEventHandler(list2));
 		
-		list1.setOnKeyPressed(new VideoKeyEventHandler());
-		list2.setOnKeyPressed(new VideoKeyEventHandler());
+		list1.setOnKeyPressed(new VideoKeyEventHandler(list1));
+		list2.setOnKeyPressed(new VideoKeyEventHandler(list2));
 		
 		updateListView();
 		
