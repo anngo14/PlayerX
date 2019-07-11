@@ -1,10 +1,13 @@
 package Controller;
 
+import java.util.Optional;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 public class VideoPlayerChangeListener implements ChangeListener<Boolean>{

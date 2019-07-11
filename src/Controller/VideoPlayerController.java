@@ -81,6 +81,8 @@ public class VideoPlayerController implements Initializable, Controller{
 		selected = (Video) m;
 		media = new Media(new File(selected.getPath()).toURI().toString());
 		player = new MediaPlayer(media);
+		player.setAutoPlay(true);
+
 	}
 	@FXML
 	public void playMedia()
@@ -157,49 +159,25 @@ public class VideoPlayerController implements Initializable, Controller{
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		panel.setOnKeyPressed(new MediaPlayerKeyEventHandler(panel, Optional.of(player)));
 		viewer.setMediaPlayer(player);
 		viewer.fitHeightProperty().bind(panel.heightProperty());
 		viewer.fitWidthProperty().bind(panel.widthProperty());
-		player.setAutoPlay(true);
+		
+		slider.valueProperty().addListener(new VideoPlayerInvalidationListener(slider, player));
+		slider.valueProperty().addListener(new SliderChangeListener(slider, player));
+		
+		playButton.focusedProperty().addListener(new VideoPlayerChangeListener(playImg));
+		reverseButton.focusedProperty().addListener(new VideoPlayerChangeListener(reverseImg));
+		forwardButton.focusedProperty().addListener(new VideoPlayerChangeListener(forwardImg));
+		
+		mediaBar.setOnKeyPressed(new MediaBarKeyEventHandler(mediaBar, timeLabel, timeBox));
+		
 		player.currentTimeProperty().addListener(new InvalidationListener() {
 			@Override
 			public void invalidated(Observable arg0) {
 				updatesValues();
 			}
-			
-		});
-		slider.valueProperty().addListener(new InvalidationListener() {
-			@Override
-			public void invalidated(Observable arg0) {
-				if(slider.isPressed()) {
-					player.seek(player.getMedia().getDuration().multiply(slider.getValue() / 100)); 
-				}
-			}
-			
-		});
-		slider.valueProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-				if(Math.abs(arg2.intValue() -  arg1.intValue()) == slider.getBlockIncrement())
-				{
-					slider.setValue(arg2.doubleValue());
-					player.seek(player.getMedia().getDuration().multiply(slider.getValue() / 100));
-				}
-			}
-			
-		});
-		playButton.focusedProperty().addListener(new VideoPlayerChangeListener(playImg));
-		reverseButton.focusedProperty().addListener(new VideoPlayerChangeListener(reverseImg));
-		forwardButton.focusedProperty().addListener(new VideoPlayerChangeListener(forwardImg));
-		mediaBar.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent arg0) {
-				if(arg0.getCode() == KeyCode.M)
-				{
-					hideMediaBar();
-				}
-			}
-			
 		});
 		
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),

@@ -146,6 +146,7 @@ public class MusicPlayerController implements Initializable, Controller{
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		panel.setOnKeyPressed(new MediaPlayerKeyEventHandler(panel, Optional.of(player)));
 		songLabel.setText(selectedMusic.getfileName());
 		playButton.focusedProperty().addListener(new MusicPlayerChangeListener(playImg));
 		pauseButton.focusedProperty().addListener(new MusicPlayerChangeListener(pauseImg));
