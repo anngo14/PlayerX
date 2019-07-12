@@ -1,9 +1,14 @@
 package Controller;
 
+import java.awt.Desktop;
+import java.net.URI;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import com.wrapper.spotify.SpotifyHttpManager;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -19,7 +24,7 @@ import javafx.util.Duration;
 public class SpotifyController implements Controller, Initializable{
 
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
-
+    
 	@FXML 
 	StackPane panel;
 	@FXML
@@ -37,18 +42,16 @@ public class SpotifyController implements Controller, Initializable{
 	
 	public SpotifyController()
 	{
-		
 	}
 	
 	@FXML
 	public void backToHome()
 	{
-		
+		MainController.getInstance().changeView(ViewType.HOMEVIEW, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void loginAction()
 	{
-		
 	}
 	@FXML
 	public void shufflePlaylist()
@@ -82,12 +85,11 @@ public class SpotifyController implements Controller, Initializable{
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0),
-				event -> timeLabel.setText(LocalTime.now().format(SHORT_TIME_FORMATTER))),
-				new KeyFrame(Duration.seconds(1)));
-
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.play();		
+		try {
+	        Desktop.getDesktop().browse(new URL("https://open.spotify.com/").toURI());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 }

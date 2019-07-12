@@ -1,5 +1,6 @@
 package Controller;
 
+import java.awt.Desktop;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -58,12 +59,20 @@ public class HomeController implements Controller, Initializable{
 	@FXML
 	public void spotifySwitch()
 	{
-		MainController.getInstance().changeView(ViewType.SPOTIFYVIEW, Optional.empty(), Optional.empty());
+		try {
+	        Desktop.getDesktop().browse(new URL("https://open.spotify.com/").toURI());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 	@FXML
 	public void youtubeSwitch()
 	{
-		
+		try {
+	        Desktop.getDesktop().browse(new URL("https://www.youtube.com/").toURI());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 	@FXML
 	public void logoutAction()

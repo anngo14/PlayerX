@@ -19,7 +19,7 @@
                   <Font size="28.0" />
                </font>
             </Label>
-            <HBox maxWidth="-Infinity" minWidth="200.0" prefHeight="400.0" prefWidth="400.0" StackPane.alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
+            <HBox focusTraversable="true" maxWidth="-Infinity" minWidth="200.0" prefHeight="400.0" prefWidth="400.0" StackPane.alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
                <children>
                   <ListView fx:id="playlistList" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #080808;" HBox.hgrow="ALWAYS">
                      <HBox.margin>
