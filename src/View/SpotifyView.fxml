@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="panel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0c0c0c;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox maxWidth="-Infinity" prefWidth="400.0" style="-fx-background-color: #080808;" StackPane.alignment="CENTER_LEFT">
+         <children>
+            <Label focusTraversable="false" text="PLAYLISTS" textFill="#f2f2f2" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="25.0" top="122.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <HBox maxWidth="-Infinity" minWidth="200.0" prefHeight="400.0" prefWidth="400.0" StackPane.alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
+               <children>
+                  <ListView fx:id="playlistList" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #080808;" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="122.0" left="25.0" right="25.0" />
+                     </HBox.margin>
+                  </ListView>
+               </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="122.0" style="-fx-background-color: #1c1c1c;" StackPane.alignment="BOTTOM_CENTER" />
+      <ImageView fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
+         <StackPane.margin>
+            <Insets left="25.0" top="25.0" />
+         </StackPane.margin>
+         <image>
+            <Image url="@../Resources/home.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
+         <image>
+            <Image url="@../Resources/rounded-512.png" />
+         </image>
+         <StackPane.margin>
+            <Insets right="25.0" top="25.0" />
+         </StackPane.margin>
+      </ImageView>
+      <ImageView fitHeight="39.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
+         <image>
+            <Image url="@../Resources/ios12-music-shuffle-icon.png" />
+         </image>
+         <StackPane.margin>
+            <Insets right="40.0" top="110.0" />
+         </StackPane.margin>
+      </ImageView>
+      <Button fx:id="login" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loginAction" prefHeight="72.0" prefWidth="72.0" style="-fx-background-color: transparent;" text="Login" textFill="TRANSPARENT" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="25.0" top="25.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="playButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playTrack" prefHeight="72.0" prefWidth="72.0" text="&gt;" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="25.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="forwardButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#forwardTrack" prefHeight="72.0" prefWidth="72.0" text="&gt;&gt;" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="25.0" left="149.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="reverseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#reverseTrack" prefHeight="72.0" prefWidth="72.0" text="&lt;&lt;" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="25.0" right="149.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="repeatButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#repeatTrack" prefHeight="72.0" prefWidth="72.0" text="repeat" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="25.0" left="298.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="shuffleButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#shuffleTrack" prefHeight="72.0" prefWidth="72.0" text="shuffle" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="25.0" right="298.0" />
+         </StackPane.margin>
+      </Button>
+      <Label fx:id="playlistLabel" focusTraversable="false" text="Playlist Name" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+         <StackPane.margin>
+            <Insets left="425.0" top="110.0" />
+         </StackPane.margin>
+      </Label>
+      <Label fx:id="usernameLabel" focusTraversable="false" text="username" textFill="#e5e5e5" StackPane.alignment="TOP_RIGHT">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <StackPane.margin>
+            <Insets right="122.0" top="39.0" />
+         </StackPane.margin>
+      </Label>
+      <ListView fx:id="trackList" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #0c0c0c;">
+         <StackPane.margin>
+            <Insets bottom="147.0" left="425.0" right="25.0" top="187.0" />
+         </StackPane.margin>
+      </ListView>
+      <Button fx:id="shuffleplayButton" mnemonicParsing="false" onAction="#shufflePlaylist" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: transparent;" text="ShufflePlay" textFill="TRANSPARENT" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="40.0" top="110.0" />
+         </StackPane.margin>
+      </Button>
+      <Label fx:id="timeLabel" focusTraversable="false" text="12:00:00" textFill="#e5e5e5" StackPane.alignment="TOP_LEFT">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <StackPane.margin>
+            <Insets left="122.0" top="39.0" />
+         </StackPane.margin>
+      </Label>
+      <Button fx:id="homeButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backToHome" prefHeight="72.0" prefWidth="72.0" style="-fx-background-color: transparent;" text="Home" textFill="TRANSPARENT" StackPane.alignment="TOP_LEFT">
+         <StackPane.margin>
+            <Insets left="25.0" top="25.0" />
+         </StackPane.margin>
+      </Button>
+      <Label fx:id="titleLabel" focusTraversable="false" text="Track Title" textFill="#ffffdb" StackPane.alignment="BOTTOM_LEFT">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="57.0" left="25.0" />
+         </StackPane.margin>
+      </Label>
+      <Label fx:id="artistLabel" focusTraversable="false" text="Artist" textFill="#ffffdb" StackPane.alignment="BOTTOM_LEFT">
+         <font>
+            <Font size="26.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="25.0" left="25.0" />
+         </StackPane.margin>
+      </Label>
+   </children>
+</StackPane>

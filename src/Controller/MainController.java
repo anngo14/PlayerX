@@ -132,6 +132,9 @@ public class MainController implements Initializable, Controller{
 				viewName = "/View/VideoPlayerView.fxml";
 				controller = new VideoPlayerController(item.get());
 				break;
+			case SPOTIFYVIEW:
+				viewName = "/View/SpotifyView.fxml";
+				controller = new SpotifyController();
 		}
 		try {
 			FXMLLoader loader = new FXMLLoader(this.getClass().getResource(viewName));

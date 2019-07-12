@@ -58,7 +58,7 @@ public class HomeController implements Controller, Initializable{
 	@FXML
 	public void spotifySwitch()
 	{
-		
+		MainController.getInstance().changeView(ViewType.SPOTIFYVIEW, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void youtubeSwitch()
