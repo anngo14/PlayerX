@@ -2,6 +2,7 @@ package Controller;
 
 import java.util.Optional;
 
+import Model.User;
 import Model.Video;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -12,9 +13,11 @@ public class VideoMouseEventHandler implements EventHandler<MouseEvent>{
 
 	private ListView<Video> node;
 	private Video select;
+	private User user;
 	
-	public VideoMouseEventHandler(Node n)
+	public VideoMouseEventHandler(Node n, User u)
 	{
+		user = u;
 		node = (ListView) n;
 	}
 	@Override
@@ -22,7 +25,7 @@ public class VideoMouseEventHandler implements EventHandler<MouseEvent>{
 		if(arg0.isPrimaryButtonDown() && arg0.getClickCount() == 2)
 		{
 			select = node.getSelectionModel().getSelectedItem();
-			MainController.getInstance().changeView(ViewType.VIDEOPLAYERVIEW, Optional.of(select), Optional.empty());
+			MainController.getInstance().changeView(ViewType.VIDEOPLAYERVIEW, user, Optional.of(select), Optional.empty());
 		}
 	}
 

@@ -1,32 +1,36 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class User {
 
 	private String userName;
 	private String imgSrc;
-	private HashMap<String, ArrayList<String>> srcLinks;
+	private String videoDirectory;
+	private String musicDirectory;
+	private String first;
 	
 	public User()
 	{
-		userName = "Default";
-		imgSrc = "Resources/Duser.png";
-		
-		ArrayList<String> videoSrc = new ArrayList<String>();
-		ArrayList<String> musicSrc = new ArrayList<String>();
-		srcLinks.put("video", videoSrc);
-		srcLinks.put("music", musicSrc);
+		userName = "John Smith";
+		first = getFirst(userName);
+		imgSrc = "Resources/rounded-512.png";
+		videoDirectory = "C:\\PlayerX\\Users\\Video\\" + first + "videoDirectory.txt";
+		musicDirectory = "C:\\PlayerX\\Users\\Music\\" + first + "musicDirectory.txt";
 	}
 	
-	public User(String name, String img, HashMap<String, ArrayList<String>> links)
+	public User(String name, String img)
 	{
 		userName = name;
 		imgSrc = img;
-		srcLinks = links;
+		first = getFirst(userName);
+		videoDirectory = "C:\\PlayerX\\Users\\Videos\\" + first + "videoDirectory.txt";
+		musicDirectory = "C:\\PlayerX\\Users\\Music\\" + first + "musicDirectory.txt";
 	}
-	
+	public String getFirst(String name)
+	{
+		String output = name.replaceAll("\\s" , "");
+		return output;
+	}
 	public String getUserName()
 	{
 		return this.userName;
@@ -34,10 +38,6 @@ public class User {
 	public String getImgSrc()
 	{
 		return this.imgSrc;
-	}
-	public ArrayList<String> getSrcLinks(String type)
-	{
-		return srcLinks.get(type);
 	}
 	public void setUserName(String name)
 	{
@@ -47,9 +47,25 @@ public class User {
 	{
 		imgSrc = location;
 	}
-	public void setSrcLinks(String type, ArrayList<String> location)
+	public String getVideo()
 	{
-		srcLinks.put(type, location);
+		return videoDirectory;
 	}
-	
+	public void setVideo(String dir)
+	{
+		videoDirectory = dir;
+	}
+	public String getMusic()
+	{
+		return musicDirectory;
+	}
+	public void setMusic(String dir)
+	{
+		musicDirectory = dir;
+	}
+	public String toString()
+	{
+		String output = userName+ "!!" + imgSrc + "!!" + videoDirectory + "!!" + musicDirectory + "@@";
+		return output;
+	}
 }

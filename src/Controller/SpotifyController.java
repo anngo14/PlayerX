@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import com.wrapper.spotify.SpotifyHttpManager;
 
+import Model.User;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,7 +25,7 @@ import javafx.util.Duration;
 public class SpotifyController implements Controller, Initializable{
 
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
-    
+    private User user;
 	@FXML 
 	StackPane panel;
 	@FXML
@@ -40,14 +41,15 @@ public class SpotifyController implements Controller, Initializable{
 	@FXML
 	Button playButton;
 	
-	public SpotifyController()
+	public SpotifyController(User u)
 	{
+		user = u;
 	}
 	
 	@FXML
 	public void backToHome()
 	{
-		MainController.getInstance().changeView(ViewType.HOMEVIEW, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void loginAction()

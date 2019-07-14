@@ -15,6 +15,7 @@ import javax.swing.UIManager;
 
 import Model.MediaItem;
 import Model.Music;
+import Model.User;
 import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -37,6 +38,7 @@ public class MainController implements Initializable, Controller{
 	private static MainController instance = null;
 	private Controller currentController = null;
 	FadeTransition fade;
+	private User u;
 	
 	@FXML
 	ImageView userImg;
@@ -46,10 +48,16 @@ public class MainController implements Initializable, Controller{
 	StackPane panel;
 	@FXML
 	Text welcomeText;
+	@FXML
+	Text userNameText;
 	
 	public MainController()
 	{
 		
+	}
+	public MainController(User user)
+	{
+		u = user;
 	}
 	
 	public static MainController getInstance() 
@@ -57,6 +65,14 @@ public class MainController implements Initializable, Controller{
 		if (instance == null)
 			instance = new MainController();
 		return instance;
+	}
+	public void setUser(User user)
+	{
+		u = user;
+	}
+	public User getUser()
+	{
+		return u;
 	}
 	public int getId()
 	{
@@ -71,7 +87,7 @@ public class MainController implements Initializable, Controller{
 		fade.setFromValue(1.0);
 		fade.setToValue(0);
 		fade.play();
-		changeView(ViewType.HOMEVIEW, Optional.empty(), Optional.empty());
+		changeView(ViewType.HOMEVIEW, u, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void exitApplication()
@@ -88,7 +104,7 @@ public class MainController implements Initializable, Controller{
 	@FXML
 	public void switchUser()
 	{
-		
+		changeView(ViewType.SWITCHUSER, u, Optional.empty(), Optional.empty());
 	}
 	public int confirmationBox()
 	{
@@ -101,7 +117,7 @@ public class MainController implements Initializable, Controller{
 		return input;
 	}
 
-	public void changeView(ViewType viewType, Optional<MediaItem> item, Optional<ArrayList<Music>> itemList) 
+	public void changeView(ViewType viewType, User user, Optional<MediaItem> item, Optional<ArrayList<Music>> itemList) 
 	{
 		
 		String viewName = "";
@@ -110,31 +126,35 @@ public class MainController implements Initializable, Controller{
 		{
 			case HOMEVIEW:
 				viewName = "/View/HomeView.fxml";
-				controller = new HomeController();
+				controller = new HomeController(user);
 				break;
 			case WELCOMEVIEW:
 				viewName = "/View/WelcomeView.fxml";
-				controller = new MainController();
+				controller = new MainController(user);
 				break;
 			case VIDEOVIEW:
 				viewName = "/View/MediaListView.fxml";
-				controller = new VideoController();
+				controller = new VideoController(user);
 				break;
 			case MUSICPLAYERVIEW:
 				viewName = "/View/MusicPlayerView.fxml";
-				controller = new MusicPlayerController(item.get(), itemList.get());
+				controller = new MusicPlayerController(user, item.get(), itemList.get());
 				break;
 			case MUSICVIEW:
 				viewName = "/View/MediaListView.fxml";
-				controller = new MusicController();
+				controller = new MusicController(user);
 				break;
 			case VIDEOPLAYERVIEW:
 				viewName = "/View/VideoPlayerView.fxml";
-				controller = new VideoPlayerController(item.get());
+				controller = new VideoPlayerController(user, item.get());
 				break;
 			case SPOTIFYVIEW:
 				viewName = "/View/SpotifyView.fxml";
-				controller = new SpotifyController();
+				controller = new SpotifyController(user);
+			case SWITCHUSER:
+				viewName = "/View/SwitchUserView.fxml";
+				controller = new SwitchUserController(user);
+				break;
 		}
 		try {
 			FXMLLoader loader = new FXMLLoader(this.getClass().getResource(viewName));
@@ -155,6 +175,7 @@ public class MainController implements Initializable, Controller{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		userNameText.setText(u.getUserName());
 		welcomeText.setStyle("-fx-font-family: 'Rubik Mono One', sans-serif; -fx-font-size: 140;");
 		welcomeText.setWrappingWidth(400);
 		fade = new FadeTransition(Duration.millis(1450), panel);

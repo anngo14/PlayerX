@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import Model.User;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -19,6 +20,8 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 public class HomeController implements Controller, Initializable{
+	
+	private User user;
 	
 	StackPane panel;
 	@FXML
@@ -38,9 +41,9 @@ public class HomeController implements Controller, Initializable{
 	private final int cid = 2;
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-	public HomeController()
+	public HomeController(User u)
 	{
-		
+		user = u;
 	}
 	public int getId()
 	{
@@ -49,12 +52,12 @@ public class HomeController implements Controller, Initializable{
 	@FXML
 	public void musicSwitch()
 	{
-		MainController.getInstance().changeView(ViewType.MUSICVIEW, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.MUSICVIEW, user, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void videoSwitch()
 	{
-		MainController.getInstance().changeView(ViewType.VIDEOVIEW, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.VIDEOVIEW, user, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void spotifySwitch()
@@ -81,7 +84,7 @@ public class HomeController implements Controller, Initializable{
 		fade.setFromValue(1);
 		fade.setToValue(0);
 		fade.play();
-		MainController.getInstance().changeView(ViewType.WELCOMEVIEW, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.WELCOMEVIEW, user, Optional.empty(), Optional.empty());
 		fade.stop();
 		fade = new FadeTransition(Duration.millis(750), panel);
 		fade.setFromValue(0);
@@ -91,7 +94,7 @@ public class HomeController implements Controller, Initializable{
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		userLabel.setText(user.getUserName());
 		youtubeButton.setStyle("-fx-font-family: 'Syncopate', sans-serif;  -fx-font-size: 25;");
 		spotifyButton.setStyle("-fx-font-family: 'Syncopate', sans-serif;  -fx-font-size: 25;");
 		videoButton.setStyle("-fx-font-family: 'Syncopate', sans-serif;  -fx-font-size: 25;");

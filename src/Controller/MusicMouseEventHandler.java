@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import Model.Music;
+import Model.User;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -13,8 +14,10 @@ public class MusicMouseEventHandler implements EventHandler<MouseEvent>{
 
 	private ListView<Music> node;
 	private ArrayList<Music> musicList;
-	public MusicMouseEventHandler(Node n, ArrayList<Music> mList)
+	private User user;
+	public MusicMouseEventHandler(Node n, User u, ArrayList<Music> mList)
 	{
+		user = u;
 		node = (ListView) n;
 		musicList = mList;
 	}
@@ -22,7 +25,7 @@ public class MusicMouseEventHandler implements EventHandler<MouseEvent>{
 	public void handle(MouseEvent event) {
 		if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
 			Music select = node.getSelectionModel().getSelectedItem();
-			MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, Optional.of(select), Optional.of(musicList));	
+			MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, user, Optional.of(select), Optional.of(musicList));	
 		}
 	}
 

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import Model.Music;
+import Model.User;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,12 +35,11 @@ import javafx.util.Duration;
 public class MusicController implements Initializable, Controller{
 
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private final File directory = new File ("C:\\PlayerX");
-    private final File defaultFileName = new File("C:\\PlayerX\\defaultMusicDirectory.txt");
 	private DirectoryChooser dirChooser = new DirectoryChooser();
 	private ArrayList<Music> musicList;
 	private ArrayList<Music> musicList1;
 	private ArrayList<Music> musicList2;
+	private User user;
 	
 	@FXML
 	Label titleLabel;
@@ -58,12 +58,22 @@ public class MusicController implements Initializable, Controller{
 	@FXML
 	StackPane panel;
 	
-	public MusicController()
+	public MusicController(User u)
 	{
+		user = u;
 		musicList = new ArrayList<Music>();
-		listAllFiles(getDefaultDir().getAbsolutePath());
-		dirChooser.setInitialDirectory(getDefaultDir());
 		dirChooser.setTitle("Select Music Directory");
+		File defaultDirectory = new File(u.getMusic());
+		try {
+			if(!defaultDirectory.exists())
+			{
+				defaultDirectory.createNewFile();
+			}
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		listAllFiles(getDefaultDir().getAbsolutePath());
 	}
 	@FXML
 	public void uploadDir()
@@ -78,12 +88,17 @@ public class MusicController implements Initializable, Controller{
 		}
 		
 		listAllFiles(file.getAbsolutePath());
+		dirChooser.setInitialDirectory(file.getAbsoluteFile());
 		updateListView();	
 	}
 	public void listAllFiles(String path)
 	{
 		File folder = new File(path);
 		File[] files = folder.listFiles();
+		if(files == null)
+		{
+			return;
+		}
 		for (File f : files)
 	    {
 			if (f.isFile())
@@ -151,7 +166,7 @@ public class MusicController implements Initializable, Controller{
 		File defaultDirectory = null;
 		
 		try {
-			input = new FileInputStream(defaultFileName);
+			input = new FileInputStream(user.getMusic());
 			InputStreamReader isr = new InputStreamReader(input);
 			BufferedReader buffer = new BufferedReader(isr);
             StringBuilder builder = new StringBuilder();
@@ -172,16 +187,8 @@ public class MusicController implements Initializable, Controller{
 	public void changeDefault()
 	{
 		FileOutputStream output = null;
-		if(!directory.exists())
-		{
-			directory.mkdir();
-		}
 		try {
-			if (!defaultFileName.exists()) {
-				defaultFileName.createNewFile();
-			}
-			
-			output = new FileOutputStream(defaultFileName);	
+			output = new FileOutputStream(user.getMusic());	
 			byte[] content = pathTextField.getText().getBytes();
 			output.write(content);
 			output.flush();
@@ -202,7 +209,7 @@ public class MusicController implements Initializable, Controller{
 	@FXML
 	public void backToHome()
 	{
-		MainController.getInstance().changeView(ViewType.HOMEVIEW, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty());
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -212,11 +219,11 @@ public class MusicController implements Initializable, Controller{
 		list1.focusedProperty().addListener(new ListChangeListener(list1));
 		list2.focusedProperty().addListener(new ListChangeListener(list2));
 		
-		list1.setOnMousePressed(new MusicMouseEventHandler(list1, musicList));
-		list2.setOnMousePressed(new MusicMouseEventHandler(list2, musicList));
+		list1.setOnMousePressed(new MusicMouseEventHandler(list1, user, musicList));
+		list2.setOnMousePressed(new MusicMouseEventHandler(list2, user, musicList));
 
-		list1.setOnKeyPressed(new MusicKeyEventHandler(list1, musicList));
-		list2.setOnKeyPressed(new MusicKeyEventHandler(list2, musicList));
+		list1.setOnKeyPressed(new MusicKeyEventHandler(list1, user, musicList));
+		list2.setOnKeyPressed(new MusicKeyEventHandler(list2, user, musicList));
 
 		updateListView();
 

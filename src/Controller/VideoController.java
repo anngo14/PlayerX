@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import Model.User;
 import Model.Video;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -38,12 +39,11 @@ public class VideoController implements Controller, Initializable{
 
 	FadeTransition fade;
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private final File directory = new File ("C:\\PlayerX");
-    private final File defaultFileName = new File("C:\\PlayerX\\defaultVideoDirectory.txt");
 	private DirectoryChooser dirChooser = new DirectoryChooser();
 	private ArrayList<Video> videoList;
 	private ArrayList<Video> videoList1;
 	private ArrayList<Video> videoList2;
+	private User user;
 	
 	@FXML
 	StackPane panel;
@@ -64,12 +64,22 @@ public class VideoController implements Controller, Initializable{
 	@FXML
 	ImageView defaultIcon;
 	
-	public VideoController()
+	public VideoController(User u)
 	{
+		user = u;
 		videoList = new ArrayList<Video>();
-		listAllFiles(getDefaultDir().getAbsolutePath());
-		dirChooser.setInitialDirectory(getDefaultDir());
 		dirChooser.setTitle("Select Video Directory");
+		File defaultDirectory = new File(u.getVideo());
+		try {
+			if(!defaultDirectory.exists())
+			{
+				defaultDirectory.createNewFile();
+			}
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		listAllFiles(getDefaultDir().getAbsolutePath());
 	}
 	
 	@FXML
@@ -84,6 +94,7 @@ public class VideoController implements Controller, Initializable{
 			pathTextField.setText(file.getAbsolutePath());
 		}
 		listAllFiles(file.getAbsolutePath());
+		dirChooser.setInitialDirectory(file.getAbsoluteFile());
 		updateListView();
 
 	}
@@ -91,6 +102,10 @@ public class VideoController implements Controller, Initializable{
 	{
 		File folder = new File(path);
 		File[] files = folder.listFiles();
+		if(files == null)
+		{
+			return;
+		}
 		for (File f : files)
 	    {
 			if (f.isFile())
@@ -157,7 +172,7 @@ public class VideoController implements Controller, Initializable{
 		File defaultDirectory = null;
 		
 		try {
-			input = new FileInputStream(defaultFileName);
+			input = new FileInputStream(user.getVideo());
 			InputStreamReader isr = new InputStreamReader(input);
 			BufferedReader buffer = new BufferedReader(isr);
             StringBuilder builder = new StringBuilder();
@@ -178,16 +193,9 @@ public class VideoController implements Controller, Initializable{
 	public void changeDefault()
 	{
 		FileOutputStream output = null;
-		if(!directory.exists())
-		{
-			directory.mkdir();
-		}
 		try {
-			if (!defaultFileName.exists()) {
-				defaultFileName.createNewFile();
-			}
 			
-			output = new FileOutputStream(defaultFileName);	
+			output = new FileOutputStream(user.getVideo());	
 			byte[] content = pathTextField.getText().getBytes();
 			output.write(content);
 			output.flush();
@@ -208,7 +216,7 @@ public class VideoController implements Controller, Initializable{
 	@FXML
 	public void backToHome()
 	{
-		MainController.getInstance().changeView(ViewType.HOMEVIEW, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty());
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -218,11 +226,11 @@ public class VideoController implements Controller, Initializable{
 		list1.focusedProperty().addListener(new ListChangeListener(list1));
 		list2.focusedProperty().addListener(new ListChangeListener(list2));
 		
-		list1.setOnMousePressed(new VideoMouseEventHandler(list1));
-		list2.setOnMousePressed(new VideoMouseEventHandler(list2));
+		list1.setOnMousePressed(new VideoMouseEventHandler(list1, user));
+		list2.setOnMousePressed(new VideoMouseEventHandler(list2, user ));
 		
-		list1.setOnKeyPressed(new VideoKeyEventHandler(list1));
-		list2.setOnKeyPressed(new VideoKeyEventHandler(list2));
+		list1.setOnKeyPressed(new VideoKeyEventHandler(list1, user));
+		list2.setOnKeyPressed(new VideoKeyEventHandler(list2, user));
 		
 		updateListView();
 		

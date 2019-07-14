@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import Model.MediaItem;
 import Model.Music;
+import Model.User;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -30,6 +31,7 @@ public class MusicPlayerController implements Initializable, Controller{
     private Media media;
     private Music selectedMusic;
     private ArrayList<Music> musicList;
+    private User user;
 	@FXML
 	StackPane panel;
 	@FXML
@@ -57,8 +59,9 @@ public class MusicPlayerController implements Initializable, Controller{
 	{
 		player = new MediaPlayer(null);
 	}
-	public MusicPlayerController(MediaItem m, ArrayList<Music> list)
+	public MusicPlayerController(User u, MediaItem m, ArrayList<Music> list)
 	{
+		user = u;
 		selectedMusic = (Music) m;
 		musicList = list;
 		media = new Media(new File(selectedMusic.getPath()).toURI().toString());
@@ -71,13 +74,13 @@ public class MusicPlayerController implements Initializable, Controller{
 	public void backToHome()
 	{
 		player.stop();
-		MainController.getInstance().changeView(ViewType.HOMEVIEW, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void backToList()
 	{
 		player.stop();
-		MainController.getInstance().changeView(ViewType.MUSICVIEW, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.MUSICVIEW, user, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void playSong()
@@ -146,7 +149,7 @@ public class MusicPlayerController implements Initializable, Controller{
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		panel.setOnKeyPressed(new MediaPlayerKeyEventHandler(panel, Optional.of(player)));
+		panel.setOnKeyPressed(new MediaPlayerKeyEventHandler(panel, user, Optional.of(player)));
 		songLabel.setText(selectedMusic.getfileName());
 		playButton.focusedProperty().addListener(new MusicPlayerChangeListener(playImg));
 		pauseButton.focusedProperty().addListener(new MusicPlayerChangeListener(pauseImg));

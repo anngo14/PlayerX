@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import Model.MediaItem;
+import Model.User;
 import Model.Video;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -41,6 +42,7 @@ public class VideoPlayerController implements Initializable, Controller{
     private Video selected;
     private MediaPlayer player;
     private Media media;
+    private User user;
     
 	@FXML
 	MediaView viewer;
@@ -74,11 +76,11 @@ public class VideoPlayerController implements Initializable, Controller{
 	
 	public VideoPlayerController()
 	{
-		
 	}
 	
-	public VideoPlayerController(MediaItem m)
+	public VideoPlayerController(User u, MediaItem m)
 	{
+		user = u;
 		selected = (Video) m;
 		media = new Media(new File(selected.getPath()).toURI().toString());
 		player = new MediaPlayer(media);
@@ -131,7 +133,7 @@ public class VideoPlayerController implements Initializable, Controller{
 	public void backToList()
 	{
 		player.stop();
-		MainController.getInstance().changeView(ViewType.VIDEOVIEW, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.VIDEOVIEW, user, Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void hideMediaBar()
@@ -160,7 +162,7 @@ public class VideoPlayerController implements Initializable, Controller{
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		panel.setOnKeyPressed(new MediaPlayerKeyEventHandler(panel, Optional.of(player)));
+		panel.setOnKeyPressed(new MediaPlayerKeyEventHandler(panel, user, Optional.of(player)));
 		panel.setCursor(Cursor.NONE);
 		viewer.setMediaPlayer(player);
 		viewer.fitHeightProperty().bind(panel.heightProperty());
