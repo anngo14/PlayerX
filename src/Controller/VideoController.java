@@ -41,8 +41,8 @@ public class VideoController implements Controller, Initializable{
     private static DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private DirectoryChooser dirChooser = new DirectoryChooser();
 	private ArrayList<Video> videoList;
-	private ArrayList<Video> videoList1;
-	private ArrayList<Video> videoList2;
+	private ArrayList<String> dirList;
+	
 	private User user;
 	
 	@FXML
@@ -56,7 +56,7 @@ public class VideoController implements Controller, Initializable{
 	@FXML
 	Button fileButton;
 	@FXML
-	ListView<Video> list1;
+	ListView<String> list1;
 	@FXML
 	ListView<Video> list2;
 	@FXML
@@ -68,6 +68,8 @@ public class VideoController implements Controller, Initializable{
 	{
 		user = u;
 		videoList = new ArrayList<Video>();
+		dirList = new ArrayList<String>();
+		dirList.add("All Videos");
 		dirChooser.setTitle("Select Video Directory");
 		File defaultDirectory = new File(u.getVideo());
 		try {
@@ -117,7 +119,8 @@ public class VideoController implements Controller, Initializable{
 	        }
 	        else if (f.isDirectory())
 	        {
-	            listAllFiles(f.getAbsolutePath());
+	        	dirList.add(f.getName());
+	            //listAllFiles(f.getAbsolutePath());
 	        }
 	    }
 		videoList = sanitizeVideoList();
@@ -136,25 +139,14 @@ public class VideoController implements Controller, Initializable{
 	}
 	public void updateListView()
 	{
-		int size = videoList.size();
-		if(size != 0)
-		{
-			videoList1 = new ArrayList<Video>(videoList.subList(0, (size + 1)/2));
-			videoList2 = new ArrayList<Video>(videoList.subList((size + 1)/2, size));
-		}
-		else
-		{
-			videoList1 = new ArrayList<Video>();
-			videoList2 = new ArrayList<Video>();
-		}
 		list1.getItems().clear();
 		list2.getItems().clear();
-		ObservableList<Video> ovList = FXCollections.observableArrayList(videoList1);
-		ObservableList<Video> ovList2 = FXCollections.observableArrayList(videoList2);
-		list1.setCellFactory(new Callback<ListView<Video>, ListCell<Video>>() {
+		ObservableList<String> ovList = FXCollections.observableArrayList(dirList);
+		ObservableList<Video> ovList2 = FXCollections.observableArrayList(videoList);
+		list1.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override
-			public ListCell<Video> call(ListView<Video> arg0) {
-				return new VideoFormatCell();
+			public ListCell<String> call(ListView<String> arg0) {
+				return new DirectoryFormatCell();
 			}
 			
 		});
@@ -249,10 +241,9 @@ public class VideoController implements Controller, Initializable{
 		list1.focusedProperty().addListener(new ListChangeListener(list1));
 		list2.focusedProperty().addListener(new ListChangeListener(list2));
 		
-		list1.setOnMousePressed(new VideoMouseEventHandler(list1, user));
-		list2.setOnMousePressed(new VideoMouseEventHandler(list2, user ));
+		list1.getSelectionModel().selectedItemProperty().addListener(new DirectoryChangeListener(list2, getDefaultDir().getAbsolutePath()));;
+		list2.setOnMousePressed(new VideoMouseEventHandler(list2, user));
 		
-		list1.setOnKeyPressed(new VideoKeyEventHandler(list1, user));
 		list2.setOnKeyPressed(new VideoKeyEventHandler(list2, user));
 		
 		updateListView();
