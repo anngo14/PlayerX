@@ -25,7 +25,7 @@ public class MusicMouseEventHandler implements EventHandler<MouseEvent>{
 	public void handle(MouseEvent event) {
 		if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
 			Music select = node.getSelectionModel().getSelectedItem();
-			MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, user, Optional.of(select), Optional.of(musicList));	
+			MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, user, Optional.of(select), Optional.of(musicList), Optional.empty());	
 		}
 	}
 

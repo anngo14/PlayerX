@@ -27,7 +27,7 @@ public class MediaPlayerKeyEventHandler implements EventHandler<KeyEvent>{
 		if(event.getCode() == KeyCode.BACK_SPACE)
 		{
 			player.stop();
-			MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty());
+			MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty(), Optional.empty());
 		}
 	}
 

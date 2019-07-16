@@ -47,17 +47,17 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="spotifyButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#spotifySwitch" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Spotify" StackPane.alignment="BOTTOM_CENTER">
+      <Button fx:id="spotifyButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#spotifySwitch" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Spotify" StackPane.alignment="BOTTOM_LEFT">
          <font>
             <Font size="36.0" />
          </font>
          <StackPane.margin>
-            <Insets bottom="50.0" right="320.0" />
+            <Insets bottom="50.0" left="439.0" />
          </StackPane.margin>
       </Button>
-      <Button fx:id="videoButton" mnemonicParsing="false" onAction="#videoSwitch" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Video" StackPane.alignment="BOTTOM_CENTER">
+      <Button fx:id="videoButton" mnemonicParsing="false" onAction="#videoSwitch" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Video" StackPane.alignment="BOTTOM_RIGHT">
          <StackPane.margin>
-            <Insets bottom="50.0" left="320.0" />
+            <Insets bottom="50.0" right="439.0" />
          </StackPane.margin>
          <font>
             <Font size="36.0" />

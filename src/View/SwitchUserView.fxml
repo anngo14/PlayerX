@@ -9,6 +9,36 @@
 
 <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="720.0" StackPane.alignment="CENTER">
+         <children>
+            <Label focusTraversable="false" text="Available Users" textFill="#f8f8f8" VBox.vgrow="NEVER">
+               <font>
+                  <Font size="48.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="97.0" />
+               </VBox.margin>
+            </Label>
+            <HBox StackPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+               <children>
+                  <ListView fx:id="list" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" StackPane.alignment="CENTER">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ListView>
+               </children>
+               <StackPane.margin>
+                  <Insets bottom="122.0" left="247.0" right="247.0" top="122.0" />
+               </StackPane.margin>
+               <VBox.margin>
+                  <Insets bottom="122.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <StackPane.margin>
+            <Insets left="247.0" right="247.0" />
+         </StackPane.margin>
+      </VBox>
       <ImageView fx:id="addUserImg" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT">
          <StackPane.margin>
             <Insets bottom="25.0" right="25.0" />
@@ -35,35 +65,5 @@
             <Insets left="25.0" top="25.0" />
          </StackPane.margin>
       </Button>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="720.0" StackPane.alignment="CENTER">
-         <children>
-            <Label focusTraversable="false" text="Available Users" textFill="WHITE" VBox.vgrow="NEVER">
-               <font>
-                  <Font size="48.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="97.0" />
-               </VBox.margin>
-            </Label>
-            <HBox StackPane.alignment="CENTER" VBox.vgrow="ALWAYS">
-               <children>
-                  <ListView fx:id="list" prefHeight="500.0" prefWidth="800.0" HBox.hgrow="ALWAYS" StackPane.alignment="CENTER">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </ListView>
-               </children>
-               <StackPane.margin>
-                  <Insets bottom="122.0" left="247.0" right="247.0" top="122.0" />
-               </StackPane.margin>
-               <VBox.margin>
-                  <Insets bottom="122.0" />
-               </VBox.margin>
-            </HBox>
-         </children>
-         <StackPane.margin>
-            <Insets left="247.0" right="247.0" />
-         </StackPane.margin>
-      </VBox>
    </children>
 </StackPane>

@@ -8,6 +8,8 @@ public class User {
 	private String videoDirectory;
 	private String musicDirectory;
 	private String first;
+	private String defaultVideo;
+	private String defaultMusic;
 	
 	public User()
 	{
@@ -16,15 +18,28 @@ public class User {
 		imgSrc = "Resources/rounded-512.png";
 		videoDirectory = "C:\\PlayerX\\Users\\Video\\" + first + "videoDirectory.txt";
 		musicDirectory = "C:\\PlayerX\\Users\\Music\\" + first + "musicDirectory.txt";
+		defaultVideo = "";
+		defaultMusic = "";
 	}
-	
+	public User(String name)
+	{
+		userName = name;
+		imgSrc = "Resources/rounded-512.png";
+		first = getFirst(userName);
+		videoDirectory = "C:\\PlayerX\\Users\\Video\\" + first + "videoDirectory.txt";
+		musicDirectory = "C:\\PlayerX\\Users\\Music\\" + first + "musicDirectory.txt";
+		defaultVideo = "";
+		defaultMusic = "";
+	}
 	public User(String name, String img)
 	{
 		userName = name;
 		imgSrc = img;
 		first = getFirst(userName);
-		videoDirectory = "C:\\PlayerX\\Users\\Videos\\" + first + "videoDirectory.txt";
+		videoDirectory = "C:\\PlayerX\\Users\\Video\\" + first + "videoDirectory.txt";
 		musicDirectory = "C:\\PlayerX\\Users\\Music\\" + first + "musicDirectory.txt";
+		defaultVideo = "";
+		defaultMusic = "";
 	}
 	public String getFirst(String name)
 	{
@@ -63,9 +78,25 @@ public class User {
 	{
 		musicDirectory = dir;
 	}
+	public String getDefaultVideo()
+	{
+		return defaultVideo;
+	}
+	public String getDefaultMusic()
+	{
+		return defaultMusic;
+	}
+	public void setDefaultVideo(String v)
+	{
+		defaultVideo = v;
+	}
+	public void setDefaultMusic(String m)
+	{
+		defaultMusic = m;
+	}
 	public String toString()
 	{
-		String output = userName+ "!!" + imgSrc + "!!" + videoDirectory + "!!" + musicDirectory + "@@";
+		String output = userName+ "!!" + imgSrc + "!!" + videoDirectory + "!!" + musicDirectory + "!!" + defaultVideo + "!!" + defaultMusic +"@@";
 		return output;
 	}
 }

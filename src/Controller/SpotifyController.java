@@ -49,7 +49,7 @@ public class SpotifyController implements Controller, Initializable{
 	@FXML
 	public void backToHome()
 	{
-		MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void loginAction()

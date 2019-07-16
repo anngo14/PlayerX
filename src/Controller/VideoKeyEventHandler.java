@@ -25,7 +25,7 @@ public class VideoKeyEventHandler implements EventHandler<KeyEvent>{
 	public void handle(KeyEvent event) {
 		if(event.getCode() == KeyCode.ENTER) {
 			select = node.getSelectionModel().getSelectedItem();
-			MainController.getInstance().changeView(ViewType.VIDEOPLAYERVIEW, user, Optional.of(select), Optional.empty());
+			MainController.getInstance().changeView(ViewType.VIDEOPLAYERVIEW, user, Optional.of(select), Optional.empty(), Optional.empty());
 		}
 		
 	}

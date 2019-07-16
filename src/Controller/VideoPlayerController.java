@@ -133,7 +133,7 @@ public class VideoPlayerController implements Initializable, Controller{
 	public void backToList()
 	{
 		player.stop();
-		MainController.getInstance().changeView(ViewType.VIDEOVIEW, user, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.VIDEOVIEW, user, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void hideMediaBar()

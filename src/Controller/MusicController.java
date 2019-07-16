@@ -68,6 +68,7 @@ public class MusicController implements Initializable, Controller{
 			if(!defaultDirectory.exists())
 			{
 				defaultDirectory.createNewFile();
+				createDefaults();
 			}
 		} catch (IOException e)
 		{
@@ -183,6 +184,28 @@ public class MusicController implements Initializable, Controller{
 		
 		return defaultDirectory;
 	}
+	public void createDefaults()
+	{
+		FileOutputStream output = null;
+		try {
+			output = new FileOutputStream(user.getMusic());	
+			byte[] content = user.getDefaultMusic().getBytes();
+			output.write(content);
+			output.flush();
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(output != null)
+				{
+					output.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	@FXML
 	public void changeDefault()
 	{
@@ -209,7 +232,7 @@ public class MusicController implements Initializable, Controller{
 	@FXML
 	public void backToHome()
 	{
-		MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

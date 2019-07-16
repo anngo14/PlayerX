@@ -24,6 +24,7 @@ import javafx.util.Callback;
 public class SwitchUserController implements Initializable, Controller{
 
 	private ArrayList<User> userList;
+    private final File defaultUser = new File("C:\\PlayerX\\Users\\lastUser.txt");
     private final File defaultFileName = new File("C:\\PlayerX\\Users\\users.txt");
     private User user;
 
@@ -81,15 +82,17 @@ public class SwitchUserController implements Initializable, Controller{
 	@FXML
 	public void backToHome()
 	{
-		MainController.getInstance().changeView(ViewType.WELCOMEVIEW, user, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.WELCOMEVIEW, user, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void addUser()
 	{
-		
+		MainController.getInstance().changeView(ViewType.ADDUSER, user, Optional.empty(), Optional.empty(), Optional.of(userList));
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		list.setOnKeyPressed(new SwitchUserKeyEventHandler(list));
+		list.setOnMousePressed(new SwitchUserMouseEventHandler(list));
 		updateList();
 	}
 

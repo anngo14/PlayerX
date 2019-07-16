@@ -2,7 +2,9 @@ package Controller;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -87,7 +89,7 @@ public class MainController implements Initializable, Controller{
 		fade.setFromValue(1.0);
 		fade.setToValue(0);
 		fade.play();
-		changeView(ViewType.HOMEVIEW, u, Optional.empty(), Optional.empty());
+		changeView(ViewType.HOMEVIEW, u, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void exitApplication()
@@ -104,7 +106,7 @@ public class MainController implements Initializable, Controller{
 	@FXML
 	public void switchUser()
 	{
-		changeView(ViewType.SWITCHUSER, u, Optional.empty(), Optional.empty());
+		changeView(ViewType.SWITCHUSER, u, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 	public int confirmationBox()
 	{
@@ -117,7 +119,7 @@ public class MainController implements Initializable, Controller{
 		return input;
 	}
 
-	public void changeView(ViewType viewType, User user, Optional<MediaItem> item, Optional<ArrayList<Music>> itemList) 
+	public void changeView(ViewType viewType, User user, Optional<MediaItem> item, Optional<ArrayList<Music>> itemList, Optional<ArrayList<User>> userList) 
 	{
 		
 		String viewName = "";
@@ -155,6 +157,10 @@ public class MainController implements Initializable, Controller{
 				viewName = "/View/SwitchUserView.fxml";
 				controller = new SwitchUserController(user);
 				break;
+			case ADDUSER: 
+				viewName = "/View/NewUserView.fxml";
+				controller = new NewUserController(user, userList.get());
+				break;
 		}
 		try {
 			FXMLLoader loader = new FXMLLoader(this.getClass().getResource(viewName));
@@ -175,6 +181,15 @@ public class MainController implements Initializable, Controller{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		if(!u.getImgSrc().equals("Resources/rounded-512.png"))
+		{
+			try {
+				userImg.setImage(new Image(new File(u.getImgSrc()).toURI().toURL().toExternalForm()));
+			} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		userNameText.setText(u.getUserName());
 		welcomeText.setStyle("-fx-font-family: 'Rubik Mono One', sans-serif; -fx-font-size: 140;");
 		welcomeText.setWrappingWidth(400);

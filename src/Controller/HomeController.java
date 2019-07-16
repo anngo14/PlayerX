@@ -52,12 +52,12 @@ public class HomeController implements Controller, Initializable{
 	@FXML
 	public void musicSwitch()
 	{
-		MainController.getInstance().changeView(ViewType.MUSICVIEW, user, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.MUSICVIEW, user, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void videoSwitch()
 	{
-		MainController.getInstance().changeView(ViewType.VIDEOVIEW, user, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.VIDEOVIEW, user, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void spotifySwitch()
@@ -84,7 +84,7 @@ public class HomeController implements Controller, Initializable{
 		fade.setFromValue(1);
 		fade.setToValue(0);
 		fade.play();
-		MainController.getInstance().changeView(ViewType.WELCOMEVIEW, user, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.WELCOMEVIEW, user, Optional.empty(), Optional.empty(), Optional.empty());
 		fade.stop();
 		fade = new FadeTransition(Duration.millis(750), panel);
 		fade.setFromValue(0);

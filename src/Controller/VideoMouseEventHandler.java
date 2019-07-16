@@ -25,7 +25,7 @@ public class VideoMouseEventHandler implements EventHandler<MouseEvent>{
 		if(arg0.isPrimaryButtonDown() && arg0.getClickCount() == 2)
 		{
 			select = node.getSelectionModel().getSelectedItem();
-			MainController.getInstance().changeView(ViewType.VIDEOPLAYERVIEW, user, Optional.of(select), Optional.empty());
+			MainController.getInstance().changeView(ViewType.VIDEOPLAYERVIEW, user, Optional.of(select), Optional.empty(), Optional.empty());
 		}
 	}
 

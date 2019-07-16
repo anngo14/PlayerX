@@ -74,13 +74,13 @@ public class MusicPlayerController implements Initializable, Controller{
 	public void backToHome()
 	{
 		player.stop();
-		MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.HOMEVIEW, user, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void backToList()
 	{
 		player.stop();
-		MainController.getInstance().changeView(ViewType.MUSICVIEW, user, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.MUSICVIEW, user, Optional.empty(), Optional.empty(), Optional.empty());
 	}
 	@FXML
 	public void playSong()

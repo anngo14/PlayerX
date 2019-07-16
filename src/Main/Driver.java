@@ -77,7 +77,7 @@ public class Driver extends Application{
 		            }
 		            if(e.getCode() == KeyCode.BACK_SPACE)
 		            {
-		            	MainController.getInstance().changeView(ViewType.HOMEVIEW, lastUser, Optional.empty(), Optional.empty());
+		            	MainController.getInstance().changeView(ViewType.HOMEVIEW, lastUser, Optional.empty(), Optional.empty(), Optional.empty());
 		            }
 		        }
 		    });

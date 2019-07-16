@@ -28,7 +28,7 @@ public class MusicKeyEventHandler implements EventHandler<KeyEvent>{
 		if(event.getCode() == KeyCode.ENTER)
 		{
 			Music select = node.getSelectionModel().getSelectedItem();
-			MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, user,  Optional.of(select), Optional.of(musicList));
+			MainController.getInstance().changeView(ViewType.MUSICPLAYERVIEW, user,  Optional.of(select), Optional.of(musicList), Optional.empty());
 		}
 	}
 
