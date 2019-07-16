@@ -89,6 +89,8 @@ public class VideoController implements Controller, Initializable{
 	public void uploadDir()
 	{
 		videoList.clear();
+		dirList.clear();
+		dirList.add("All Videos");
 		Stage stage = (Stage) panel.getScene().getWindow();
 		File file = dirChooser.showDialog(stage);
 		
@@ -99,6 +101,7 @@ public class VideoController implements Controller, Initializable{
 		listAllFiles(file.getAbsolutePath());
 		dirChooser.setInitialDirectory(file.getAbsoluteFile());
 		updateListView();
+		list1.getSelectionModel().selectedItemProperty().addListener(new DirectoryChangeListener(list2, pathTextField.getText()));
 
 	}
 	public void listAllFiles(String path)
@@ -227,6 +230,7 @@ public class VideoController implements Controller, Initializable{
 				e.printStackTrace();
 			}
 		}
+		updateListView();
 	}
 	@FXML
 	public void backToHome()
@@ -241,7 +245,7 @@ public class VideoController implements Controller, Initializable{
 		list1.focusedProperty().addListener(new ListChangeListener(list1));
 		list2.focusedProperty().addListener(new ListChangeListener(list2));
 		
-		list1.getSelectionModel().selectedItemProperty().addListener(new DirectoryChangeListener(list2, getDefaultDir().getAbsolutePath()));;
+		list1.getSelectionModel().selectedItemProperty().addListener(new DirectoryChangeListener(list2, pathTextField.getText()));
 		list2.setOnMousePressed(new VideoMouseEventHandler(list2, user));
 		
 		list2.setOnKeyPressed(new VideoKeyEventHandler(list2, user));

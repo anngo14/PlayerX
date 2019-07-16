@@ -36,6 +36,10 @@ public class DirectoryChangeListener implements ChangeListener<String>{
 			{
 				listAllFiles(directory);
 			}
+			else if(newValue.equals("null"))
+			{
+				
+			}
 			else
 			{
 				listAllFiles(directory.concat("\\" + newValue));
