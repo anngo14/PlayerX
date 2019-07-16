@@ -1,5 +1,8 @@
 package Controller;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 import Model.User;
@@ -25,7 +28,13 @@ public class VideoKeyEventHandler implements EventHandler<KeyEvent>{
 	public void handle(KeyEvent event) {
 		if(event.getCode() == KeyCode.ENTER) {
 			select = node.getSelectionModel().getSelectedItem();
-			MainController.getInstance().changeView(ViewType.VIDEOPLAYERVIEW, user, Optional.of(select), Optional.empty(), Optional.empty());
+			try {
+				Desktop.getDesktop().open(new File(select.getPath()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//MainController.getInstance().changeView(ViewType.VIDEOPLAYERVIEW, user, Optional.of(select), Optional.empty(), Optional.empty());
 		}
 		
 	}

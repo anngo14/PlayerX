@@ -127,7 +127,7 @@ public class VideoController implements Controller, Initializable{
 		ArrayList<Video> temp = new ArrayList<Video>();
 		for(Video m: videoList)
 		{
-			if(m.getfileName().endsWith(".mp4") || m.getfileName().endsWith(".flv"))
+			if(m.getfileName().endsWith(".mp4") || m.getfileName().endsWith(".flv") || m.getfileName().endsWith(".avi") || m.getfileName().endsWith(".mkv") || m.getfileName().endsWith(".mov"))
 			{
 				temp.add(m);
 			}
