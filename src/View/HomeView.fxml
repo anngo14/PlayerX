@@ -39,37 +39,53 @@
             <Insets right="25.0" top="25.0" />
          </StackPane.margin>
       </Button>
-      <Button fx:id="musicButton" mnemonicParsing="false" onAction="#musicSwitch" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Music" StackPane.alignment="BOTTOM_RIGHT">
-         <StackPane.margin>
-            <Insets bottom="50.0" right="100.0" />
-         </StackPane.margin>
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Button>
-      <Button fx:id="spotifyButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#spotifySwitch" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Spotify" StackPane.alignment="BOTTOM_LEFT">
-         <font>
-            <Font size="36.0" />
-         </font>
-         <StackPane.margin>
-            <Insets bottom="50.0" left="439.0" />
-         </StackPane.margin>
-      </Button>
-      <Button fx:id="videoButton" mnemonicParsing="false" onAction="#videoSwitch" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Video" StackPane.alignment="BOTTOM_RIGHT">
-         <StackPane.margin>
-            <Insets bottom="50.0" right="439.0" />
-         </StackPane.margin>
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Button>
-      <Button fx:id="youtubeButton" mnemonicParsing="false" onAction="#youtubeSwitch" prefHeight="70.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="YouTube" StackPane.alignment="BOTTOM_LEFT">
-         <font>
-            <Font size="36.0" />
-         </font>
-         <StackPane.margin>
-            <Insets bottom="50.0" left="100.0" />
-         </StackPane.margin>
-      </Button>
+      <HBox alignment="CENTER" maxHeight="200.0" StackPane.alignment="BOTTOM_CENTER">
+         <children>
+            <Button fx:id="youtubeButton" mnemonicParsing="false" onAction="#youtubeSwitch" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="YouTube" StackPane.alignment="BOTTOM_LEFT">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="50.0" left="100.0" />
+               </StackPane.margin>
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="spotifyButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#spotifySwitch" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Spotify" StackPane.alignment="BOTTOM_LEFT">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets bottom="50.0" left="439.0" />
+               </StackPane.margin>
+               <HBox.margin>
+                  <Insets left="50.0" right="50.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="videoButton" mnemonicParsing="false" onAction="#videoSwitch" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Video" StackPane.alignment="BOTTOM_RIGHT">
+               <StackPane.margin>
+                  <Insets bottom="50.0" right="439.0" />
+               </StackPane.margin>
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="50.0" right="50.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="musicButton" mnemonicParsing="false" onAction="#musicSwitch" prefHeight="79.0" prefWidth="189.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Music" StackPane.alignment="BOTTOM_RIGHT">
+               <StackPane.margin>
+                  <Insets bottom="50.0" right="100.0" />
+               </StackPane.margin>
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </StackPane>
