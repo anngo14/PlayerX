@@ -11,7 +11,7 @@
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="720.0" StackPane.alignment="CENTER">
          <children>
-            <Label focusTraversable="false" text="Available Users" textFill="#f8f8f8" VBox.vgrow="NEVER">
+            <Label focusTraversable="false" style="-fx-background-color: transparent;" text="Available Users" textFill="#f8f8f8" VBox.vgrow="NEVER">
                <font>
                   <Font size="48.0" />
                </font>
@@ -21,7 +21,7 @@
             </Label>
             <HBox StackPane.alignment="CENTER" VBox.vgrow="ALWAYS">
                <children>
-                  <ListView fx:id="list" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" StackPane.alignment="CENTER">
+                  <ListView fx:id="list" prefHeight="500.0" prefWidth="800.0" HBox.hgrow="ALWAYS" StackPane.alignment="CENTER">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
