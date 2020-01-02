@@ -128,22 +128,6 @@ public class VideoController implements Controller, Initializable{
 	            //listAllFiles(f.getAbsolutePath());
 	        }
 	    }
-		System.out.println("Before compare");
-		for(Video v: this.videoList) {
-			System.out.print(v.getfileName() + " ");
-		}
-		Collections.sort(this.videoList, MediaItem.nameComparator);
-		System.out.println("After compare");
-		for(Video v: this.videoList) {
-			System.out.print(v.getfileName() + " ");
-		}
-		videoList = sanitizeVideoList();
-		System.out.println("After sort");
-		ArrayList<Video> t = reverseVideoList();
-		for(Video v: t) {
-			System.out.print(v.getfileName() + " ");
-		}
-
 	}
 	public ArrayList<Video> sanitizeVideoList()
 	{
