@@ -83,8 +83,8 @@ public abstract class MediaItem {
 	}
 	public static Comparator<MediaItem> nameComparator = new Comparator<MediaItem>() {         
 		@Override         
-		public int compare(MediaItem m1, MediaItem m2) {             
-			return (int) (m1.fileName.compareTo(m2.fileName));         
+		public int compare(MediaItem m1, MediaItem m2) {
+			return (int) (m1.getfileName().compareTo(m2.getfileName()));         
 		}     
 	};         
 
