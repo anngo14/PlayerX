@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public abstract class MediaItem {
 
@@ -77,4 +78,14 @@ public abstract class MediaItem {
 	{
 		path = location;
 	}
+	public int compareTo(MediaItem i2) {
+		return this.fileName.compareTo(i2.fileName);
+	}
+	public static Comparator<MediaItem> nameComparator = new Comparator<MediaItem>() {         
+		@Override         
+		public int compare(MediaItem m1, MediaItem m2) {             
+			return (int) (m1.fileName.compareTo(m2.fileName));         
+		}     
+	};         
+
 }

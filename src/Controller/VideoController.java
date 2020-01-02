@@ -10,9 +10,11 @@ import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import Model.MediaItem;
 import Model.User;
 import Model.Video;
 import javafx.animation.Animation;
@@ -126,7 +128,22 @@ public class VideoController implements Controller, Initializable{
 	            //listAllFiles(f.getAbsolutePath());
 	        }
 	    }
+		System.out.println("Before compare");
+		for(Video v: this.videoList) {
+			System.out.print(v.getfileName() + " ");
+		}
+		Collections.sort(this.videoList, MediaItem.nameComparator);
+		System.out.println("After compare");
+		for(Video v: this.videoList) {
+			System.out.print(v.getfileName() + " ");
+		}
 		videoList = sanitizeVideoList();
+		System.out.println("After sort");
+		ArrayList<Video> t = reverseVideoList();
+		for(Video v: t) {
+			System.out.print(v.getfileName() + " ");
+		}
+
 	}
 	public ArrayList<Video> sanitizeVideoList()
 	{
@@ -139,6 +156,15 @@ public class VideoController implements Controller, Initializable{
 			}
 		}
 		return temp;
+	}
+	public ArrayList<Video> reverseVideoList(){
+		ArrayList<Video> reverse = new ArrayList<Video>();
+		int count = this.videoList.size() - 1;
+		for(int i = 0; i < this.videoList.size(); i++) {
+			reverse.add(this.videoList.get(count));
+			count--;
+		}
+		return reverse;
 	}
 	public void updateListView()
 	{
