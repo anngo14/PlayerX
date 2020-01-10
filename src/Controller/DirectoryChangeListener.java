@@ -2,7 +2,9 @@ package Controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 
+import Model.MediaItem;
 import Model.Video;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -76,6 +78,7 @@ public class DirectoryChangeListener implements ChangeListener<String>{
 	        }
 	    }
 		videoList = sanitizeVideoList();
+		Collections.sort(videoList, MediaItem.naturalComparator);
 	}
 	public ArrayList<Video> sanitizeVideoList()
 	{

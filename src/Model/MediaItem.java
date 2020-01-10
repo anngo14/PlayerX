@@ -86,6 +86,52 @@ public abstract class MediaItem {
 		public int compare(MediaItem m1, MediaItem m2) {
 			return (int) (m1.getfileName().compareTo(m2.getfileName()));         
 		}     
-	};         
+	};
+	public static Comparator<MediaItem> naturalComparator = new Comparator<MediaItem>() {
+		
+		public boolean hasDigits(String s) {
+			if(s.matches("^.*\\d+.mp4$")) {
+				return true;
+			}
+			return false;
+		}
+
+		@Override
+		public int compare(MediaItem m1, MediaItem m2) {
+			String d1 = null;
+			String d2 = null;
+			if(hasDigits(m1.getfileName())){
+				d1 = m1.getfileName();
+			}
+			if(hasDigits(m2.getfileName())) {
+				d2 = m2.getfileName();
+			}
+			if(d1 == null && d2 != null) {
+				return 1;
+			}
+			else if(d1 != null && d2 == null) {
+				return -1;
+			}
+			else if(d1 == null && d2 == null) {
+				return (int) m1.getfileName().compareTo(m2.getfileName());
+			}
+			else {
+				String[] temp1 = d1.split("\\s");
+				String[] temp2 = d2.split("\\s");
+				String[] num1 = temp1[temp1.length - 1].split("\\.");
+				String[] num2 = temp2[temp2.length - 1].split("\\.");
+
+				if(Integer.parseInt(num1[0]) > Integer.parseInt(num2[0])) {
+					return -1;
+				}
+				else if(Integer.parseInt(num1[0]) < Integer.parseInt(num2[0])) {
+					return 1;
+				}
+				else {
+					return (int) m1.getfileName().compareTo(m2.getfileName());
+				}
+			}
+		}
+	};
 
 }

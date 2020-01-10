@@ -125,9 +125,10 @@ public class VideoController implements Controller, Initializable{
 	        else if (f.isDirectory())
 	        {
 	        	dirList.add(f.getName());
-	            //listAllFiles(f.getAbsolutePath());
 	        }
 	    }
+		videoList = sanitizeVideoList();
+		Collections.sort(videoList, MediaItem.naturalComparator);
 	}
 	public ArrayList<Video> sanitizeVideoList()
 	{
