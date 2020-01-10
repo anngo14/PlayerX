@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 
 public class MusicFormatCell extends ListCell<Music>{
 	public MusicFormatCell() { }
@@ -22,6 +23,7 @@ public class MusicFormatCell extends ListCell<Music>{
 			setGraphic(imgView);
 			Label fileLabel = new Label(m.getfileName());
 			setText(m.getfileName());
+			setFont(Font.font(42));
 		}
 		
 	}
